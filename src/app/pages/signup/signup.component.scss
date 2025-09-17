@@ -1,0 +1,101 @@
+@import '../../../styles/mixins.scss';
+
+.signup {
+    display: flex;
+    width: 1920px;
+    height: 1000px;
+
+    img {
+        width:948px;
+        height: 1000px;
+    }
+
+    .signup__rightSide {
+        width: 972px;
+        @include FlexContainerColumn;
+        // gap: 16px;
+
+        .signup__rightSide__heading {
+            width: 554px;
+            text-align: left;
+            margin-bottom: 86px;
+
+            h1 {
+                width: 261px;
+                // height: 63px;
+                font-weight: 600;
+                font-size: 42px;
+            }
+        }
+        
+
+        .signup__rightSide__form {
+            width: 554px;
+            height: 518px;
+            @include FlexContainerColumn;
+            gap: 46px;
+
+            .signup__rightSide__form__images {
+                // @include FlexContainer;
+                display: grid;
+                grid-template-columns: 100px 84px 54px;
+                width: 272px;
+                height: 100px;
+                gap: 15px;
+                justify-self: start;
+                // border: 1px solid;
+                align-self: start;
+                justify-content: center;
+                align-items: center;
+
+                img {
+                    width: 100px;
+                    height: 100px;
+                }
+
+                p {
+                    cursor: pointer;
+                    height: 21px
+                }
+            }
+
+            .signup__rightside__form__fields {
+                @include FlexContainerColumn;
+                width: 554px;
+                height: 240px;
+                gap: 24px;
+                // border: 1px solid;
+
+                input {
+                    width: 554px;
+                    height: 42px;
+                    padding: 16px 8px 16px 8px;
+                    font-size: 14px;
+                    border: 1px solid #E1DFE1;
+                    border-radius: 8px;
+                }
+
+                input::placeholder {
+                    color: black;
+                    opacity: 1;
+                }
+            }
+
+            button {
+                width: 554px;
+                height: 41px;
+                border-radius: 10px;
+                background-color: #FF4000;
+                color: white;
+                border: none;
+                cursor: pointer;
+                line-height: 41px; // Center the text inside the button
+            }
+
+            span { 
+                color: #FF4000;
+                cursor: pointer;
+            }
+        }
+    }
+}

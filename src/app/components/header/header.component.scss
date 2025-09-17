@@ -1,0 +1,28 @@
+@import '../../../styles/mixins.scss';
+
+.header {
+    @include FlexContainer;
+    justify-content: space-between;
+    width: 1920px;
+    height: 80px;
+    padding-left: 100px;
+    padding-right: 100px;
+
+    .header__leftSection {
+        @include FlexContainer;
+        gap: 4px;
+
+        img {
+            user-select: none;
+        }
+    }
+
+    .header__rightSection {
+        @include FlexContainer;
+        gap: 8px;
+
+        img {
+            user-select: none;
+        }
+    }
+}

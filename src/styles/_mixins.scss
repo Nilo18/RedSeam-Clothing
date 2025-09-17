@@ -1,0 +1,14 @@
+// Basic flex container
+@mixin FlexContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// Flex column container
+@mixin FlexContainerColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
