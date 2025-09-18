@@ -15,3 +15,11 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.errMsg {
+    font-size: 11px;
+    color: red;
+    line-height: 0;
+    align-self: flex-start;
+    text-align: left;
+}

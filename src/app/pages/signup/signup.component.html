@@ -7,23 +7,68 @@
                 <h1>Registration</h1>
             </div>
 
-            <div class="signup__rightSide__form">
+            <form class="signup__rightSide__form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
                 <div class="signup__rightSide__form__images">
-                    <img src="icons/Ellipse 1.png" alt="Default profile image">
-                    <p>Upload new</p>
-                    <p>Remove</p>
+                    <input type="file" accept="image/*" #fileInput (change)="onFileSelected($event)" hidden>
+                    <ng-container *ngIf="!selectedFile; else showProfileImg">
+                        <img src="icons/avatarPlaceholder.png" alt="Profile image placeholder" draggable="false">
+                    </ng-container>
+
+                    <ng-template #showProfileImg>
+                        <img [src]="imagePreview" alt="Profile image">
+                    </ng-template>
+                    <p (click)="fileInput.click()">Upload new</p>
+                    <p (click)="removeFile()">Remove</p>
                 </div>
 
+                <ng-container *ngIf="errors.avatarError?.[0]">
+                    <p class="errMsg avatarErr">{{errors.avatarError[0]}}</p>
+                </ng-container>
+
                 <div class="signup__rightside__form__fields">
-                    <input type="text" placeholder="Username">
-                    <input type="text" placeholder="Email">
-                    <input type="text" placeholder="Password">
-                    <input type="text" placeholder="Confirm password">
+                    <div class="signup__rightside__form__fields__username">
+                        <input type="text" placeholder="Username" formControlName="username">
+                        <!-- Render the error paragraph only if there actually is an error -->
+                        <!-- Display only the first error per field to avoid overcrowding the page -->
+                        <!-- This way if the user fixes only one error but leaves some other, that one will be shown next -->
+                        <!-- And eventually they will have to fix all of them one by one -->
+                        <ng-container *ngIf="errors.usernameError?.[0]">
+                            <p class="errMsg">{{errors.usernameError[0]}}</p>
+                        </ng-container>
+                    </div>
+
+                    <div class="signup__rightside__form__fields__email">
+                        <input type="text" placeholder="Email" formControlName="email">
+                        <ng-container *ngIf="errors.emailError?.[0]">
+                            <p class="errMsg">{{errors.emailError[0]}}</p>
+                        </ng-container>
+                    </div>
+
+                    <!-- Use input-wrapper to align show password icon correctly -->
+                    <div class="input-wrapper">
+                        <img src="icons/Vector.png" alt="See password icon"
+                        class="showPasswordIcon" (click)="toggleShowPassword()">
+                        <input [type]="showPassword ? 'text' : 'password'" 
+                        placeholder="Password" formControlName="password" class="passwordField">
+                        <ng-container *ngIf="errors.passwordError?.[0]">
+                            <p class="errMsg">{{errors.passwordError[0]}}</p>
+                        </ng-container>
+                    </div>
+                    
+                    <div class="input-wrapper">
+                        <img src="icons/Vector.png" alt="See password icon" 
+                        class="showPasswordIcon" (click)="toggleShowConfirmPassword()">
+                        <input [type]="showConfirmPassword ? 'text' : 'password'" 
+                        placeholder="Confirm password" formControlName="confirmPassword" class="passwordField">
+                        <ng-container *ngIf="errors.confirmPasswordError?.[0]">
+                            <p class="errMsg">{{errors.confirmPasswordError[0]}}</p>
+                        </ng-container>
+                    </div>
                 </div>
 
                 <button>Register</button>
-                <p>Already member? <span>Log in</span></p>
-            </div>
+                <p>Already member? <span routerLink="/login">Log in</span></p>
+            </form>
         </div>
     </div>
 </div>

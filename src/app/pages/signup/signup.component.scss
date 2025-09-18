@@ -15,16 +15,14 @@
     .signup__rightSide {
         width: 100%;
         @include FlexContainerColumn;
-        // gap: 16px;
 
         .signup__rightSide__heading {
             width: 554px;
             text-align: left;
-            margin-bottom: 86px;
+            margin-bottom: 80px;
 
             h1 {
                 width: 261px;
-                // height: 63px;
                 font-weight: 600;
                 font-size: 42px;
             }
@@ -38,14 +36,12 @@
             gap: 46px;
 
             .signup__rightSide__form__images {
-                // @include FlexContainer;
                 display: grid;
                 grid-template-columns: 100px 84px 54px;
                 width: 272px;
                 height: 100px;
                 gap: 15px;
                 justify-self: start;
-                // border: 1px solid;
                 align-self: start;
                 justify-content: center;
                 align-items: center;
@@ -53,6 +49,8 @@
                 img {
                     width: 100px;
                     height: 100px;
+                    border-radius: 50px;
+                    user-select: none;
                 }
 
                 p {
@@ -66,7 +64,12 @@
                 width: 554px;
                 height: 240px;
                 gap: 24px;
-                // border: 1px solid;
+
+                .signup__rightside__form__fields__username, .signup__rightside__form__fields__email {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 14px;
+                }
 
                 input {
                     width: 554px;
@@ -81,6 +84,30 @@
                     color: black;
                     opacity: 1;
                 }
+
+                .input-wrapper {
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                
+                    .showPasswordIcon {
+                        width: 16.69px;
+                        height: 12.5px;
+                        position: absolute;
+                        top: 50%;
+                        right: 10px;
+                        transform: translateY(-50%);
+                        cursor: pointer;
+                    }
+                    
+                    .errMsg {
+                        position: absolute;
+                        top: 55px;
+                        left: 0;
+                    }
+                }
+
             }
 
             button {
