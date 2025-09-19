@@ -17,8 +17,12 @@
             </div>
         </div>
 
-        <div class="products__items" *ngFor="let product of products">
-            
+        <div class="products__items">
+            <div *ngFor="let product of products">
+                <div class="products__items__item">
+                    {{product.name}}
+                </div>
+            </div>
         </div>
     </div>
 </div>

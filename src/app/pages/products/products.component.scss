@@ -1,6 +1,13 @@
 @import '../../../styles/mixins.scss';
 
 .products {
+    width: 1720px;
+    height: 1938px;
+    @include FlexContainerColumn;
+    gap: 20px;
+    margin-top: 100px;
+    // border: 1px solid;
+
     .products__heading {
         @include FlexContainer;
         justify-content: space-between;
@@ -8,7 +15,7 @@
         // min-width: 1330px;
         padding-left: auto;
         padding-right: auto;
-        margin: 60px auto 0; // center horizontally
+        // margin: 60px auto 0; // center horizontally
         // display: flex;
 
         .products__heading__rightSection {
@@ -27,4 +34,21 @@
             }
         }
     }
+
+    .products__items {
+        // border: 1px solid;
+        width: 1720px;
+        // height: 1938px;
+        display: grid;
+        grid-template-columns: 412px 412px 412px 412px;
+        column-gap: 24px;
+        row-gap: 48px;
+
+        .products__items__item {
+            width: 412px;
+            height: 614px;
+            border: 1px solid;
+        }
+    }
+
 }
