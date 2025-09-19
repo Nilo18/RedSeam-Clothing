@@ -47,7 +47,7 @@ export class SignupComponent {
       }
       reader.readAsDataURL(this.selectedFile)
 
-      this.resetErrorArr()
+      this.resetErrorArr() 
     }
   }
 
@@ -105,7 +105,7 @@ export class SignupComponent {
     try {
       const res = await this.auth.signup(formData)
       if (res.token) {
-        localStorage.setItem('token', JSON.stringify(res.token))
+        this.auth.saveTokenToStorage(res.token)
         console.log('Saved: ', res.token)
       }
 

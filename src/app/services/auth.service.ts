@@ -3,25 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 
-// interface User {
-//   email: string,
-//   id: number,
-//   username: string
-// }
-
-// interface Token {
-//   token: string
-// }
-
-// interface RegisterSuccess {
-//   token: string,
-//   user: User
-// }
-
-// interface RegisterError {
-
-// }
-
 @Injectable({
   providedIn: 'root'
 })
@@ -39,5 +20,9 @@ export class AuthService {
       console.log("Couldn't sign up: ", err)
       throw err
     }
+  }
+
+  saveTokenToStorage(token: string) {
+    localStorage.setItem('token', JSON.stringify(token))
   }
 }
