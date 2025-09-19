@@ -88,10 +88,10 @@ export class SignupComponent {
     this.showConfirmPassword = !this.showConfirmPassword
   }
 
-  async onSubmit() {
+  // Method to append to form data
+  appendToFormData() {
     const formData = new FormData()
-
-    // Append form values to form-data to allow images
+    // Append form values to form-data to allow images to be sent
     formData.append('username', this.signupForm.value.username)
     formData.append('email', this.signupForm.value.email)
     formData.append('password', this.signupForm.value.password)
@@ -102,6 +102,36 @@ export class SignupComponent {
       formData.append('avatar', this.selectedFile)
     }
 
+    return formData
+  }
+
+  sortErrors(err: any) {
+    // Place all possible errors in their respective categories
+    // Use ... (spread) operator to avoid nested arrays
+    const fields = ['username', 'email', 'password', 'avatar'] as const; // Possible categories of errors
+
+    // Separate each field by keys, this is a better approach then pushing each category manually
+    fields.forEach(field => {
+      const fieldErrors = err.error.errors[field];
+      if (fieldErrors?.length) {
+        this.errors[`${field}Error`].push(...fieldErrors);
+      }
+    });
+  }
+
+  separateConfirmPasswordError(err: any) {
+    // Check if the user got password confirmation error
+    const confirmError = err.error.errors.password.find((msg: string) => msg.toLowerCase().includes('confirm'))
+    if (confirmError) {
+      // If they did, move them into confirmPasswordError 
+      this.errors.confirmPasswordError.push(confirmError)
+      this.errors.passwordError = this.errors.passwordError.flat().filter((msg: string) => !msg.toLowerCase().includes('confirm'));
+    }
+  }
+
+  async onSubmit() {
+    const formData = this.appendToFormData()
+
     try {
       const res = await this.auth.signup(formData)
       if (res.token) {
@@ -111,25 +141,8 @@ export class SignupComponent {
 
       this.router.navigate(['products'])
     } catch (err: any) {
-      // Place all possible errors in their respective categories
-      // Use ... (spread) operator to avoid nested arrays
-      const fields = ['username', 'email', 'password', 'avatar'] as const; // Possible categories of errors
-
-      // Separate each field by keys, this is a better approach then pushing each category manually
-      fields.forEach(field => {
-        const fieldErrors = err.error.errors[field];
-        if (fieldErrors?.length) {
-          this.errors[`${field}Error`].push(...fieldErrors);
-        }
-      });
-
-      // Check if the user got password confirmation error
-      const confirmError = err.error.errors.password.find((msg: string) => msg.toLowerCase().includes('confirm'))
-      if (confirmError) {
-        // If they did, move them into confirmPasswordError 
-        this.errors.confirmPasswordError.push(confirmError)
-        this.errors.passwordError = this.errors.passwordError.flat().filter((msg: string) => !msg.toLowerCase().includes('confirm'));
-      }
+      this.sortErrors(err)
+      this.separateConfirmPasswordError(err);
     }
 
   }
