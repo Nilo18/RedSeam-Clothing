@@ -1,1 +1,47 @@
-<p>login works!</p>
+<app-header></app-header>
+<div class="cont">
+    <div class="login">
+        <img src="background-images/AuthBackground2.png" alt="Login background">
+        <div class="login__rightSide">
+            <div class="login__rightSide__heading">
+                <h1>Log in</h1>
+            </div>
+
+            <form class="login__rightSide__form" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+                <div class="login__rightside__form__fields">
+                    <div class="login__rightside__form__fields__email">
+                        <input type="text" placeholder="Email" formControlName="email">
+                        <!-- Render the error paragraph only if there actually is an error -->
+                        <!-- Display only the first error per field to avoid overcrowding the page -->
+                        <!-- This way if the user fixes only one error but leaves some other, that one will be shown next -->
+                        <!-- And eventually they will have to fix all of them one by one -->
+                        <ng-container *ngIf="errors.emailError?.[0]">
+                            <p class="errMsg">{{errors.emailError[0]}}</p>
+                        </ng-container>
+                    </div>
+
+                    <!-- Use input-wrapper to align show password icon correctly -->
+                    <div class="input-wrapper">
+                        <img src="icons/Vector.png" alt="See password icon"
+                        class="showPasswordIcon" (click)="toggleShowPassword()">
+                        <input [type]="showPassword ? 'text' : 'password'" 
+                        placeholder="Password" formControlName="password" class="passwordField">
+                        <ng-container *ngIf="errors.passwordError?.[0]">
+                            <p class="errMsg">{{errors.passwordError[0]}}</p>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="login__rightside__form__button">
+                    <ng-container *ngIf="gotUnauthErr">
+                        <p class="errMsg">An account with this email doesn't exist.</p>
+                    </ng-container>
+
+                    <button>Log in</button>
+                </div>
+
+            </form>
+            <p>Not a member? <span routerLink="/">Register</span></p>
+        </div>
+    </div>
+</div>

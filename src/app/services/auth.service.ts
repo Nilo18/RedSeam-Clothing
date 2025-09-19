@@ -3,6 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 
+export interface LoginCredentials {
+  email: string,
+  password: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,10 +19,19 @@ export class AuthService {
   async signup(credentials: FormData) {
     try {
       const res = await firstValueFrom(this.http.post<any>(`${this.baseURL}/register`, credentials))
-      console.log(res)
       return res
     } catch (err) {
       console.log("Couldn't sign up: ", err)
+      throw err
+    }
+  }
+
+  async login(credentials: LoginCredentials) {
+    try {
+      const res = await firstValueFrom(this.http.post<any>(`${this.baseURL}/login`, credentials))
+      return res
+    } catch (err) {
+      console.log("Couldn't log in: ", err)
       throw err
     }
   }

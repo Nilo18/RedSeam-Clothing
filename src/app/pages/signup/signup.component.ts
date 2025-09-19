@@ -136,7 +136,6 @@ export class SignupComponent {
       const res = await this.auth.signup(formData)
       if (res.token) {
         this.auth.saveTokenToStorage(res.token)
-        console.log('Saved: ', res.token)
       }
 
       this.router.navigate(['products'])
