@@ -1,0 +1,30 @@
+@import '../../../styles/mixins.scss';
+
+.products {
+    .products__heading {
+        @include FlexContainer;
+        justify-content: space-between;
+        width: 1720px;
+        // min-width: 1330px;
+        padding-left: auto;
+        padding-right: auto;
+        margin: 60px auto 0; // center horizontally
+        // display: flex;
+
+        .products__heading__rightSection {
+            @include FlexContainer;
+            gap: 32px;
+
+            img {
+                user-select: none;
+            }
+
+            .products__heading__rightSection__filter, .products__heading__rightSection__sort {
+                @include FlexContainer;
+                cursor: pointer;
+                user-select: none;
+                gap: 8px
+            }
+        }
+    }
+}

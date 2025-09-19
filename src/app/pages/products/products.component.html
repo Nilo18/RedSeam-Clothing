@@ -1,1 +1,24 @@
-<p>products works!</p>
+<app-header></app-header>
+<div class="cont">
+    <div class="products">
+        <div class="products__heading">
+            <h2>Products</h2>
+            <div class="products__heading__rightSection">
+                <p>Showing 1–10 of 100 results</p>
+                <img src="icons/lineIcon.png" alt="Line icon" draggable="false">
+                <div class="products__heading__rightSection__filter">
+                    <img src="icons/filterIcon.png" alt="Filter icon" draggable="false">
+                    <p>Filter</p>
+                </div>
+                <div class="products__heading__rightSection__sort">
+                    <p>Sort by</p>
+                    <img src="icons/dropdownIcon.png" alt="Dropdown icon" draggable="false">
+                </div>
+            </div>
+        </div>
+
+        <div class="products__items" *ngFor="let product of products">
+            
+        </div>
+    </div>
+</div>

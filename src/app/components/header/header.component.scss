@@ -8,9 +8,14 @@
     padding-left: 100px;
     padding-right: 100px;
 
+    h3, p {
+        user-select: none;
+    }
+
     .header__leftSection {
         @include FlexContainer;
         gap: 4px;
+        cursor: pointer;
 
         img {
             user-select: none;

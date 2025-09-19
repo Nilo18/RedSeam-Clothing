@@ -7,8 +7,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 
 const routes: Routes = [
-  {path: '', component: SignupComponent},
-  {path: 'products', component: ProductsComponent},
+  {path: '', component: ProductsComponent},
+  {path: 'register', component: SignupComponent},
   {path: 'product', component: ProductComponent},
   {path: 'login', component: LoginComponent},
   {path: 'checkout', component: CheckoutComponent},
