@@ -16,6 +16,11 @@
         width: 100%;
         @include FlexContainerColumn;
 
+        span { 
+            color: #FF4000;
+            cursor: pointer;
+        }
+
         .signup__rightSide__heading {
             width: 554px;
             text-align: left;
@@ -39,12 +44,14 @@
 
             .signup__rightSide__form__images {
                 @include FlexContainer;
-                width: 272px;
+                justify-content: flex-start;
+                width: 302px;
                 height: 100px;
                 gap: 15px;
 
                 .signup__rightside__form__images__imageUpload {
                     @include FlexContainer;
+                    width: 207px;
                     cursor: pointer;
                     gap: 15px;
 
@@ -59,7 +66,9 @@
 
                 p {
                     cursor: pointer;
-                    height: 21px
+                    height: 21px;
+                    font-size: 14px
+                    // width: 71px;
                 }
             }
 
@@ -123,11 +132,6 @@
                 border: none;
                 cursor: pointer;
                 line-height: 41px; // Center the text inside the button
-            }
-
-            span { 
-                color: #FF4000;
-                cursor: pointer;
             }
         }
     }
