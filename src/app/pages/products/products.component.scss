@@ -94,6 +94,52 @@
                     }
                 }
             }
+
+            .sort__modal {
+                width: 223px;
+                height: 184px;
+                border: 1px solid rgb(220, 220, 220);
+                position: absolute;
+                z-index: 9999;
+                top: 35px;
+                right: 0;
+                background-color: white; 
+                border-radius: 8px; 
+
+                .sort__modal__content {
+                    @include FlexContainerColumn;
+                    width: 100%;
+                    height: 100%;
+                    justify-content: space-evenly;
+                    align-items: start;
+                    padding-top: 16px;
+                    padding-bottom: 16px;
+                    gap: 8px;
+
+                    .sort__modal__content__headingWrapper {
+                        padding-left: 16px;
+                    }
+
+                    .sort__modal__content__optionWrapper {
+                        width: 100%;
+                        height: 100%;
+                        padding-left: 16px;
+                        display: flex;
+                        align-items: center;
+                        transition: 0.15s ease-in-out;
+                        cursor: pointer;
+
+                        p {
+                            user-select: none;
+                            vertical-align: middle;
+                        }
+                    }
+
+                    .sort__modal__content__optionWrapper:hover {
+                        background-color: rgb(239, 239, 239);
+                    }
+                }
+            }
         }
     }
 
@@ -105,6 +151,13 @@
         grid-template-columns: 412px 412px 412px 412px;
         column-gap: 24px;
         row-gap: 56px;
+
+        .products__items__itemImgSkeleton {
+            width: 412px;
+            height: 549px;
+            background-color: gray;
+            border: 1px solid;
+        }
 
         .products__items__item {
             width: 412px;

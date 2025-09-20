@@ -10,7 +10,7 @@
                     <img src="icons/filterIcon.png" alt="Filter icon" draggable="false">
                     <p>Filter</p>
                 </div>
-                <div class="products__heading__rightSection__sort">
+                <div class="products__heading__rightSection__sort" (click)="toggleSort()">
                     <p>Sort by</p>
                     <img src="icons/dropdownIcon.png" alt="Dropdown icon" draggable="false">
                 </div>
@@ -29,6 +29,26 @@
                             <div class="filter__modal__content__button">
                                 <button (click)="sendFilterReq()">Apply</button>
                             </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <!-- Sort modal -->
+                <ng-container *ngIf="showSort">
+                    <div class="sort__modal">
+                        <div class="sort__modal__content">
+                            <div class="sort__modal__content__headingWrapper">
+                                <h4>Sort by</h4>
+                            </div>
+                            <div class="sort__modal__content__optionWrapper" (click)="sort('created_at')">
+                                <p>New products first</p>
+                            </div>
+                            <div class="sort__modal__content__optionWrapper" (click)="sort('price')">
+                                <p>Price, low to high</p>
+                            </div>
+                            <div class="sort__modal__content__optionWrapper" (click)="sort('-price')">
+                                <p>Price, high to low</p>
+                            </div>                        
                         </div>
                     </div>
                 </ng-container>

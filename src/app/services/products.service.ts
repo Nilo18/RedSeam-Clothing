@@ -85,4 +85,15 @@ export class ProductsService {
       throw err
     }
   }
+
+  async sortProducts(by: string) {
+    try {
+      const res = await firstValueFrom(this.http.get<ProductsResponse>(`${this.productsURL}?sort=${by}`))
+      console.log(res)
+      return res.data
+    } catch (err) {
+      console.log("Couldn't sort: ", err)
+      throw err
+    }
+  }
 }

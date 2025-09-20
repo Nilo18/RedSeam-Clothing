@@ -16,6 +16,7 @@ export class ProductsComponent {
   products: Product[] = []
   modalIsActive: boolean = false
   showFilter: boolean = false;
+  showSort: boolean = false;
   productsAreBeingFetched: boolean = true;
   filterInput: FilterValues = {
     from: '',
@@ -30,17 +31,25 @@ export class ProductsComponent {
     console.log('Products inside the ProductComponent: ', this.products)
   }
 
+  // Toggle filter modal
   toggleFilter() {
     this.showFilter = !this.showFilter
-    console.log(this.showFilter)
+    // console.log('Filter flag', this.showFilter)
   }
 
+  // Disable modals when the user clicks somewhere else on the page
   @HostListener('document:click', ['$event'])
-  disableModal(event: MouseEvent) {
-    const target = event.target as HTMLElement
+  handleDocumentClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
 
+    // Filter modal
     if (this.showFilter && !target.closest('.products__heading__rightSection__filter') && !target.closest('.filter__modal')) {
       this.showFilter = false;
+    }
+
+    // Sort modal
+    if (this.showSort && !target.closest('.products__heading__rightSection__sort') && !target.closest('.sort__modal')) {
+      this.showSort = false;
     }
   }
 
@@ -54,5 +63,16 @@ export class ProductsComponent {
     } catch (err) {
         console.log("Couldn't send filter request: ", err)
     }
+  }
+
+  // Toggle sort modal
+  toggleSort() {
+    this.showSort = !this.showSort
+    // console.log('Sort flag', this.showSort)
+  }
+
+  async sort(by: string) {
+    const res = await this.productsService.sortProducts(by);
+    this.products = res
   }
 }
