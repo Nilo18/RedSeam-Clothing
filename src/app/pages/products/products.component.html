@@ -23,27 +23,36 @@
                         </div>
                         <div class="filter__modal__content">
                             <div class="filter__modal__content__inputs">
-                                <input type="text" placeholder="From">
-                                <input type="text" placeholder="To">
+                                <input type="text" placeholder="From" [(ngModel)]="filterInput.from">
+                                <input type="text" placeholder="To" [(ngModel)]="filterInput.to">
                             </div>
                             <div class="filter__modal__content__button">
-                                <button>Apply</button>
+                                <button (click)="sendFilterReq()">Apply</button>
                             </div>
                         </div>
-                        <!-- a -->
                     </div>
                 </ng-container>
             </div>
         </div>
 
         <div class="products__items">
-            <div *ngFor="let product of products">
-                <div class="products__items__item">
-                    <img [src]="product.cover_image" alt="Cover image">
-                    <p>{{product.name}}</p>
-                    <p>$ {{product.price}}</p>
+            <ng-container *ngIf="productsAreBeingFetched">
+                <p>Loading...</p>
+            </ng-container>
+
+            <ng-container *ngIf="products.length; else showNoResults">
+                <div *ngFor="let product of products">
+                    <div class="products__items__item">
+                        <img [src]="product.cover_image" alt="Cover image">
+                        <p>{{product.name}}</p>
+                        <p>$ {{product.price}}</p>
+                    </div>
                 </div>
-            </div>
+            </ng-container>
+
+            <ng-template #showNoResults>
+                <p *ngIf="!productsAreBeingFetched">Couldn't find results.</p>
+            </ng-template>
         </div>
     </div>
 </div>

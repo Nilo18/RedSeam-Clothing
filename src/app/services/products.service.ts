@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { first, firstValueFrom } from 'rxjs';
 
 interface Brand {
   id: number,
@@ -70,6 +70,18 @@ export class ProductsService {
       return res.data
     } catch (err) {
       console.log("Couldn't get all the products: ", err)
+      throw err
+    }
+  }
+
+  async filterProducts(from: string, to: string) {
+    try {
+      const res = 
+      await firstValueFrom(this.http.get<ProductsResponse>(`${this.productsURL}?filter[price_from]=${from}&filter[price_to]=${to}`))
+      console.log(res)
+      return res.data
+    } catch (err) {
+      console.log("Couldn't filter: ", err)
       throw err
     }
   }
