@@ -100,11 +100,7 @@
                 button {
                     width: 554px;
                     height: 41px;
-                    border-radius: 10px;
-                    background-color: #FF4000;
-                    color: white;
-                    border: none;
-                    cursor: pointer;
+                    @include BasicRedseamButton;
                     line-height: 41px; // Center the text inside the button
                 }
             }
