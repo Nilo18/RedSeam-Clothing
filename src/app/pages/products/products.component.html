@@ -6,7 +6,7 @@
             <div class="products__heading__rightSection">
                 <p>Showing 1–10 of 100 results</p>
                 <img src="icons/lineIcon.png" alt="Line icon" draggable="false">
-                <div class="products__heading__rightSection__filter">
+                <div class="products__heading__rightSection__filter" (click)="toggleFilter()">
                     <img src="icons/filterIcon.png" alt="Filter icon" draggable="false">
                     <p>Filter</p>
                 </div>
@@ -14,6 +14,25 @@
                     <p>Sort by</p>
                     <img src="icons/dropdownIcon.png" alt="Dropdown icon" draggable="false">
                 </div>
+
+                                            <!-- Price filter modal -->
+                <ng-container *ngIf="showFilter">
+                    <div class="filter__modal">
+                        <div class="filter__modal__heading">
+                            <h4>Select price</h4>
+                        </div>
+                        <div class="filter__modal__content">
+                            <div class="filter__modal__content__inputs">
+                                <input type="text" placeholder="From">
+                                <input type="text" placeholder="To">
+                            </div>
+                            <div class="filter__modal__content__button">
+                                <button>Apply</button>
+                            </div>
+                        </div>
+                        <!-- a -->
+                    </div>
+                </ng-container>
             </div>
         </div>
 

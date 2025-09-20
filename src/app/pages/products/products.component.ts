@@ -9,11 +9,18 @@ import { ProductsService, Product } from '../../services/products.service';
 
 export class ProductsComponent {
   products: Product[] = []
+  modalIsActive: boolean = false
+  showFilter: boolean = false;
 
   constructor (private productsService: ProductsService) {}
 
   async ngOnInit() {
     this.products = await this.productsService.getAllProducts('1');
     console.log('Products inside the ProductComponent: ', this.products)
+  }
+
+  toggleFilter() {
+    this.showFilter = !this.showFilter
+    console.log(this.showFilter)
   }
 }

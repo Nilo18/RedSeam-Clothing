@@ -12,3 +12,10 @@
     justify-content: center;
     align-items: center;
 }
+
+@mixin BasicRedseamButton {
+    background-color: #FF4000;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}

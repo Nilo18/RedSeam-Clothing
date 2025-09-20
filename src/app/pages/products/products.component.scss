@@ -21,6 +21,7 @@
         .products__heading__rightSection {
             @include FlexContainer;
             gap: 32px;
+            position: relative;
 
             img {
                 user-select: none;
@@ -31,6 +32,67 @@
                 cursor: pointer;
                 user-select: none;
                 gap: 8px
+            }
+
+            .filter__modal {
+                @include FlexContainerColumn;
+                gap: 20px;
+                width: 392px;
+                height: 169px;
+                border: 1px solid rgb(220, 220, 220);
+                background: #fff;
+                z-index: 9999;        /* stronger */
+                position: absolute;      /* float above page */
+                top: 35px;           /* adjust as needed */
+                right: 100px;
+                border-radius: 8px;
+                padding-left: 16px;
+                padding-right: 16px;
+
+                .filter__modal__heading {
+                    width: 360px;
+                    text-align: left;
+                    // padding-left: 10px;
+                }
+
+                .filter__modal__content {
+                    @include FlexContainerColumn;
+                    gap: 10px;
+
+                    .filter__modal__content__inputs {
+                        @include FlexContainer;
+                        width: 360px;
+                        gap: 10px;
+
+                        input {
+                            width: 175px;
+                            height: 42px;
+                            border: 1px solid rgb(220, 220, 220);
+                            border-radius: 8px;
+                            padding-left: 10px;
+                            padding-right: 10px;
+                        }
+
+                        input::placeholder {
+                            color: black;
+                            opacity: 0.8;
+                        }
+                    }
+
+                    .filter__modal__content__button {
+                        width: 360px;
+                        display: flex;
+                        justify-content: end;
+                        // padding-right: 10px;
+                        // align-items: end;
+
+                        button {
+                            @include BasicRedseamButton;
+                            width: 124px;
+                            height: 41px;
+                        }
+                    }
+                }
             }
         }
     }
