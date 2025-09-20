@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { ProductsService, Product } from '../../services/products.service';
+import { ProductsService, Product, Meta, ProductsResponse } from '../../services/products.service';
 
 interface FilterValues {
   from: string,
@@ -17,6 +17,8 @@ export class ProductsComponent {
   modalIsActive: boolean = false
   showFilter: boolean = false;
   showSort: boolean = false;
+  pageInfo!: Meta;
+  // nextPage!: string
   productsAreBeingFetched: boolean = true;
   filterInput: FilterValues = {
     from: '',
@@ -26,9 +28,36 @@ export class ProductsComponent {
   constructor (private productsService: ProductsService) {}
 
   async ngOnInit() {
-    this.products = await this.productsService.getAllProducts('1');
+    const response = await this.productsService.getAllProducts('1')
+    this.products = response.data; // This will save the products
     this.productsAreBeingFetched = false
     console.log('Products inside the ProductComponent: ', this.products)
+    this.pageInfo = response.meta // This will save page info
+    console.log(this.pageInfo)
+    console.log('The next page is: ', this.getNextPage())
+  }
+
+  getNextPage() {
+    // Cast the next page into a string so it can be used as a query parameter
+    if (this.pageInfo && this.pageInfo.current_page + 1 < 10) {
+      return String(this.pageInfo.current_page + 1)
+    } else {
+      // Move back to the first page if the next page exceeds 10
+      return String(1)
+    }
+  }
+
+  getPreviousPage() {
+    return String(this.pageInfo.current_page - 1)
+  }
+
+  getCurrentPage() {
+    console.log(this.pageInfo.current_page)
+    if (this.pageInfo.current_page < 8) {
+      return String(this.pageInfo.current_page)
+    } else {
+      return String(1)
+    }
   }
 
   // Toggle filter modal
@@ -74,5 +103,14 @@ export class ProductsComponent {
   async sort(by: string) {
     const res = await this.productsService.sortProducts(by);
     this.products = res
+  }
+
+  async changePage(pageNumber: string) {
+    const response = await this.productsService.getAllProducts(pageNumber)
+    this.products = response.data;
+    this.productsAreBeingFetched = false
+    this.pageInfo = response.meta
+    console.log('The next page is: ', this.getNextPage())
+    console.log('Products inside the ProductComponent: ', this.products)
   }
 }

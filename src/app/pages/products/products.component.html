@@ -74,5 +74,16 @@
                 <p *ngIf="!productsAreBeingFetched">Couldn't find results.</p>
             </ng-template>
         </div>
+
+        <div class="products__pages">
+            <img src="icons/leftArrowIcon.png" alt="Left arrow icon" draggable="false" (click)="changePage(getPreviousPage())">
+            <button (click)="changePage('1')">1</button>
+            <button (click)="changePage(getNextPage())">{{getNextPage()}}</button>
+            <button>...</button>
+            <button (click)="changePage('9')">9</button>
+            <button (click)="changePage('10')">10</button>
+            <!-- Using getter because the page number has to be cast into a string in order to be used as a query parameter -->
+            <img src="icons/rightArrowIcon.png" alt="Right arrow icon" draggable="false" (click)="changePage(getNextPage())">
+        </div>
     </div>
 </div>

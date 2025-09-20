@@ -2,26 +2,26 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { first, firstValueFrom } from 'rxjs';
 
-interface Brand {
+export interface Brand {
   id: number,
   name: string,
   image: string
 }
 
-interface Links {
+export interface Links {
   first: string,
   last: string,
   next: string,
   prev: string
 }
 
-interface PageLink {
+export interface PageLink {
   url: string,
   label: string,
   active: boolean
 }
 
-interface Meta {
+export interface Meta {
   current_page: number,
   from: number,
   last_page: number,
@@ -49,7 +49,7 @@ export interface Product {
   brand?: Brand
 }
 
-interface ProductsResponse {
+export interface ProductsResponse {
   data: Product[],
   links: Links,
   meta: Meta
@@ -60,14 +60,19 @@ interface ProductsResponse {
 })
 export class ProductsService {
   private productsURL = 'https://api.redseam.redberryinternship.ge/api/products'
+  // private productsResponse!: ProductsResponse
+  // private currentPage: number = 0
 
   constructor(private http: HttpClient) { }
 
   async getAllProducts(page: string) {
     try {
       const res = await firstValueFrom(this.http.get<ProductsResponse>(`${this.productsURL}?page=${page}`))
+      // this.currentPage = res.meta.current_page
+      // this.productsResponse = res
       console.log(res)
-      return res.data
+      // console.log('Local copy of products response: ', this.productsResponse)
+      return res
     } catch (err) {
       console.log("Couldn't get all the products: ", err)
       throw err
