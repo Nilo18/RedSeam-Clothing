@@ -42,12 +42,20 @@
         display: grid;
         grid-template-columns: 412px 412px 412px 412px;
         column-gap: 24px;
-        row-gap: 48px;
+        row-gap: 56px;
 
         .products__items__item {
             width: 412px;
             height: 614px;
-            border: 1px solid;
+            cursor: pointer;
+            // border: 1px solid;
+            // background-color: gray;
+
+            img {
+                width: 412px;
+                height: 549px;
+                
+            }
         }
     }
 

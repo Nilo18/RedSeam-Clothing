@@ -63,10 +63,10 @@ export class ProductsService {
 
   constructor(private http: HttpClient) { }
 
-  async getAllProducts() {
+  async getAllProducts(page: string) {
     try {
-      const res = await firstValueFrom(this.http.get<ProductsResponse>(this.productsURL))
-      console.log(res.data)
+      const res = await firstValueFrom(this.http.get<ProductsResponse>(`${this.productsURL}?page=${page}`))
+      console.log(res)
       return res.data
     } catch (err) {
       console.log("Couldn't get all the products: ", err)

@@ -20,7 +20,9 @@
         <div class="products__items">
             <div *ngFor="let product of products">
                 <div class="products__items__item">
-                    {{product.name}}
+                    <img [src]="product.cover_image" alt="Cover image">
+                    <p>{{product.name}}</p>
+                    <p>$ {{product.price}}</p>
                 </div>
             </div>
         </div>

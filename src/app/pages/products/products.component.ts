@@ -13,7 +13,7 @@ export class ProductsComponent {
   constructor (private productsService: ProductsService) {}
 
   async ngOnInit() {
-    this.products = await this.productsService.getAllProducts();
+    this.products = await this.productsService.getAllProducts('1');
     console.log('Products inside the ProductComponent: ', this.products)
   }
 }
