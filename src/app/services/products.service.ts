@@ -55,49 +55,63 @@ export interface ProductsResponse {
   meta: Meta
 }
 
+export interface FilterValues {
+  from?: string,
+  to?: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-  private productsURL = 'https://api.redseam.redberryinternship.ge/api/products'
-  // private productsResponse!: ProductsResponse
-  // private currentPage: number = 0
+  private productsURL: string = 'https://api.redseam.redberryinternship.ge/api/products'
+  private filters: FilterValues = {}
+  private sortBy?: string
+  private page?: string
 
   constructor(private http: HttpClient) { }
 
-  async getAllProducts(page: string) {
+  // Use one method for fetching products, this will allow sort and filter chaining
+  async getAllProducts(page?: string, from?: string, to?: string, by?: string) {
     try {
-      const res = await firstValueFrom(this.http.get<ProductsResponse>(`${this.productsURL}?page=${page}`))
-      // this.currentPage = res.meta.current_page
-      // this.productsResponse = res
+      // Save the filtering options if they're being passed
+      if (from && to) {
+        this.filters.from = from;
+        this.filters.to = to;
+      }
+
+      if (by) { 
+        this.sortBy = by; 
+      }
+
+      if (page) {
+        this.page = page;
+      } 
+
+      // An array to keep track of the query parameters
+      const queryParts: string[] = []
+
+      // Store the query strings in a Record to map them to each other, this is better than using multiple if statements
+      const queryMap: Record<string, string | undefined> = {
+        page: this.page,
+        'filter[price_from]': this.filters.from,
+        'filter[price_to]': this.filters.to,
+        sort: this.sortBy,
+      };
+
+      // Now iterate over the Record and construct query parameters
+      for (const [key, value] of Object.entries(queryMap)) {
+        if (value) queryParts.push(`${key}=${value}`);
+      }
+
+      // Join the parameters with & to complete the construction
+      const query = queryParts.join('&')
+      // Send the request with the built query
+      const res = await firstValueFrom(this.http.get<ProductsResponse>(`${this.productsURL}?${query}`))
       console.log(res)
-      // console.log('Local copy of products response: ', this.productsResponse)
       return res
     } catch (err) {
       console.log("Couldn't get all the products: ", err)
-      throw err
-    }
-  }
-
-  async filterProducts(from: string, to: string) {
-    try {
-      const res = 
-      await firstValueFrom(this.http.get<ProductsResponse>(`${this.productsURL}?filter[price_from]=${from}&filter[price_to]=${to}`))
-      console.log(res)
-      return res.data
-    } catch (err) {
-      console.log("Couldn't filter: ", err)
-      throw err
-    }
-  }
-
-  async sortProducts(by: string) {
-    try {
-      const res = await firstValueFrom(this.http.get<ProductsResponse>(`${this.productsURL}?sort=${by}`))
-      console.log(res)
-      return res.data
-    } catch (err) {
-      console.log("Couldn't sort: ", err)
       throw err
     }
   }

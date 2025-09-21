@@ -1,10 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { ProductsService, Product, Meta, ProductsResponse } from '../../services/products.service';
-
-interface FilterValues {
-  from: string,
-  to: string
-}
+import { ProductsService, Product, Meta, ProductsResponse, FilterValues } from '../../services/products.service';
 
 @Component({
   selector: 'app-products',
@@ -18,7 +13,6 @@ export class ProductsComponent {
   showFilter: boolean = false;
   showSort: boolean = false;
   pageInfo!: Meta;
-  // nextPage!: string
   productsAreBeingFetched: boolean = true;
   filterInput: FilterValues = {
     from: '',
@@ -85,9 +79,8 @@ export class ProductsComponent {
   async sendFilterReq() {
     try {
       if (this.filterInput.from && this.filterInput.to) {
-        console.log(this.filterInput.from, this.filterInput.to)
-        const res = await this.productsService.filterProducts(this.filterInput.from, this.filterInput.to);
-        this.products = res
+        const res = await this.productsService.getAllProducts('', this.filterInput.from, this.filterInput.to, '');
+        this.products = res.data
       }
     } catch (err) {
         console.log("Couldn't send filter request: ", err)
@@ -101,8 +94,8 @@ export class ProductsComponent {
   }
 
   async sort(by: string) {
-    const res = await this.productsService.sortProducts(by);
-    this.products = res
+    const res = await this.productsService.getAllProducts('', '', '', by);
+    this.products = res.data
   }
 
   async changePage(pageNumber: string) {
@@ -111,6 +104,5 @@ export class ProductsComponent {
     this.productsAreBeingFetched = false
     this.pageInfo = response.meta
     console.log('The next page is: ', this.getNextPage())
-    console.log('Products inside the ProductComponent: ', this.products)
   }
 }
