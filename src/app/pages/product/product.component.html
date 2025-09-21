@@ -1,1 +1,55 @@
-<p>product works!</p>
+<app-header></app-header>
+<div class="cont">
+    <div class="product">
+        <div class="product__heading">
+            <p>Listing / Product</p>
+        </div>
+        <div class="product__layout">
+            <div class="product__images">
+                <div class="product__images__design">
+                    <div *ngFor="let image of images">
+                        <img [src]="image" alt="Product design">
+                    </div>
+                </div>
+
+                <div class="product__images__coverImage">
+                    <img [src]="product?.cover_image" alt="Product cover image">
+                </div>
+            </div>
+
+            <div class="product__data">
+                <div class="product__data__heading">
+                    <h1>{{product?.name}}</h1>
+                    <h1>$ {{product?.price}}</h1>
+                </div>
+
+                <div class="product__data__appearance">
+                    <div class="product__data__appearance__color">
+                        <p>Color: {{product?.color}}</p>
+                        <!-- <div *ngFor="let color of product?.available_colors">
+                            {{color}}
+                        </div> -->
+                    </div>
+                </div>
+
+                <div class="product__data__button">
+                    <!-- Added parapgraph inside to align the text with the icon better -->
+                    <button><img src="icons/shoppingCartWhite.png" alt="Cart icon"><p>Add to cart</p></button>
+                </div>
+
+                <div class="product__data__details">
+                    <div class="product__data__details__brand">
+                        <h3>Details</h3>
+                        <img [src]="product?.brand?.image" alt="Product brand logo">
+                    </div>
+
+                    <div class="product__data__details__description">
+                        <p>Brand: {{product?.brand?.name}}</p>
+                        <p>{{product?.description}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

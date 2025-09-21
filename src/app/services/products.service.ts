@@ -115,4 +115,15 @@ export class ProductsService {
       throw err
     }
   }
+
+  async getProductById(id: number) {
+    try {
+      const res = await firstValueFrom(this.http.get<Product>(`${this.productsURL}/${id}`))
+      console.log('The found product is: ', res)
+      return res
+    } catch (err) {
+      console.log("Couldn't get product by id: ", err)
+      throw err
+    }
+  }
 }

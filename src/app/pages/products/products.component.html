@@ -62,7 +62,7 @@
 
             <ng-container *ngIf="products.length; else showNoResults">
                 <div *ngFor="let product of products">
-                    <div class="products__items__item">
+                    <div class="products__items__item" [routerLink]="['/product', product.id]">
                         <img [src]="product.cover_image" alt="Cover image">
                         <p>{{product.name}}</p>
                         <p>$ {{product.price}}</p>
