@@ -77,8 +77,8 @@
 
         <div class="products__pages">
             <img src="icons/leftArrowIcon.png" alt="Left arrow icon" draggable="false" (click)="changePage(getPreviousPage())">
-            <button (click)="changePage('1')">1</button>
-            <button (click)="changePage(getNextPage())">{{getNextPage()}}</button>
+            <button (click)="changePage('1')" id="firstButton">1</button>
+            <button (click)="changePage(calculateNextPage())">{{calculateNextPage()}}</button>
             <button>...</button>
             <button (click)="changePage('9')">9</button>
             <button (click)="changePage('10')">10</button>

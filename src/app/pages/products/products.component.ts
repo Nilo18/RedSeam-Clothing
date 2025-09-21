@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { ProductsService, Product, Meta, ProductsResponse, FilterValues } from '../../services/products.service';
+import { ProductsService, Product, Meta, FilterValues, PageLink } from '../../services/products.service';
 
 @Component({
   selector: 'app-products',
@@ -9,10 +9,13 @@ import { ProductsService, Product, Meta, ProductsResponse, FilterValues } from '
 
 export class ProductsComponent {
   products: Product[] = []
-  modalIsActive: boolean = false
-  showFilter: boolean = false;
-  showSort: boolean = false;
+  // modalIsActive: boolean = false 
+  pageIsActive: boolean = false; // Flag to check which page is active
+  showFilter: boolean = false; // Flag to control filter modal
+  showSort: boolean = false; // Flag to control sort modal
   pageInfo!: Meta;
+  pageLinks: PageLink[] = []
+
   productsAreBeingFetched: boolean = true;
   filterInput: FilterValues = {
     from: '',
@@ -27,14 +30,24 @@ export class ProductsComponent {
     this.productsAreBeingFetched = false
     console.log('Products inside the ProductComponent: ', this.products)
     this.pageInfo = response.meta // This will save page info
+    this.pageLinks = response.meta.links
+    console.log('Received page links: ', this.pageLinks)
+    for (let link of this.pageLinks) {
+      if (link.active) {
+        // this.pageIsActive = true
+        const btn = document.querySelector<HTMLElement>('#firstButton')
+        console.log('The button access through DOM: ', btn)
+        btn?.focus()
+      }
+    }
     console.log(this.pageInfo)
     console.log('The next page is: ', this.getNextPage())
   }
 
   getNextPage() {
     // Cast the next page into a string so it can be used as a query parameter
-    if (this.pageInfo && this.pageInfo.current_page + 1 < 10) {
-      return String(this.pageInfo.current_page + 1)
+    if (this.pageInfo && this.pageInfo?.current_page + 1 < 10) {
+      return String(this.pageInfo?.current_page + 1)
     } else {
       // Move back to the first page if the next page exceeds 10
       return String(1)
@@ -46,12 +59,16 @@ export class ProductsComponent {
   }
 
   getCurrentPage() {
-    console.log(this.pageInfo.current_page)
-    if (this.pageInfo.current_page < 8) {
-      return String(this.pageInfo.current_page)
+    console.log(this.pageInfo?.current_page)
+    if (this.pageInfo?.current_page < 8) {
+      return this.pageInfo.current_page
     } else {
-      return String(1)
+      return 7
     }
+  }
+
+  calculateNextPage() {
+    return String(this.getCurrentPage() + 1)
   }
 
   // Toggle filter modal
@@ -103,6 +120,12 @@ export class ProductsComponent {
     this.products = response.data;
     this.productsAreBeingFetched = false
     this.pageInfo = response.meta
+    this.pageLinks = response.meta.links
+    for (let link of this.pageLinks) {
+      if (link.active) {
+        this.pageIsActive = true
+      }
+    }
     console.log('The next page is: ', this.getNextPage())
   }
 }
