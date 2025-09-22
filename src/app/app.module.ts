@@ -11,6 +11,7 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     ProductComponent,
     HeaderComponent,
     CheckoutComponent,
-    ProductsComponent
+    ProductsComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ export class ProductComponent {
   product!: Product
   images: string[] = []
   possibleColors: { [key: string]: string } = {}
+  showCart: boolean = false
 
   constructor (private route: ActivatedRoute, private productsService: ProductsService, private colors: ColorsService) {}
 
@@ -25,4 +26,11 @@ export class ProductComponent {
     this.possibleColors = this.colors.getColorHexMap()
     console.log('The possible colors are: ', this.possibleColors)
   }
+
+  setCartVisibility(val: boolean) {
+    this.showCart = val
+    console.log(this.showCart)
+  }
+
+  // shouldCloseCart(val: boolean)
 }
