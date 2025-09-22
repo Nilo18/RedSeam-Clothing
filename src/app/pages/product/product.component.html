@@ -26,9 +26,38 @@
                 <div class="product__data__appearance">
                     <div class="product__data__appearance__color">
                         <p>Color: {{product?.color}}</p>
-                        <!-- <div *ngFor="let color of product?.available_colors">
-                            {{color}}
-                        </div> -->
+                        <div class="product__data__appearance__color__availableColors">
+                            <div *ngFor="let color of product?.available_colors">
+                                <div 
+                                class="product__data__appearance__color__availableColors__availableColor"
+                                [style.background-color]="possibleColors[color]"></div>   
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product__data__appearance__size">
+                        <p>Size: {{product?.size}}</p>
+                        <div class="product__data__appearance__size__availableSizes">
+                            <div *ngFor="let size of product?.available_sizes">
+                                <button>{{size}}</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product__data__appearance__quantity">
+                        <p>Quantity</p>
+                        <select name="Quantity">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
                     </div>
                 </div>
 

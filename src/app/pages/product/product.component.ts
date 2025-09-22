@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ProductsService, Product } from '../../services/products.service';
 import { ActivatedRoute } from '@angular/router';
+import { ColorsService } from '../../services/colors.service';
 
 @Component({
   selector: 'app-product',
@@ -10,8 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductComponent {
   product!: Product
   images: string[] = []
+  possibleColors: { [key: string]: string } = {}
 
-  constructor (private route: ActivatedRoute, private productsService: ProductsService) {}
+  constructor (private route: ActivatedRoute, private productsService: ProductsService, private colors: ColorsService) {}
 
   async ngOnInit() {  
     const id = this.route.snapshot.paramMap.get('id')
@@ -20,5 +22,7 @@ export class ProductComponent {
     console.log('Received the product in the component: ', this.product)
     this.images = this.product.images
     console.log('The images received from the product: ', this.images)
+    this.possibleColors = this.colors.getColorHexMap()
+    console.log('The possible colors are: ', this.possibleColors)
   }
 }

@@ -3,7 +3,7 @@
 .product {
     width: 1920px;
     height: auto;
-    border: 1px solid;
+    // border: 1px solid;
     // margin-top: 50px;
     margin-bottom: 100px;
     @include FlexContainerColumn;
@@ -31,7 +31,7 @@
             gap: 25px;
 
             .product__images__design {
-                border: 1px solid;
+                // border: 1px solid;
                 width: 121px;
                 height: 937px;
                 @include FlexContainerColumn;
@@ -49,7 +49,7 @@
             .product__images__coverImage {
                 width: 703px;
                 height: 937px;
-                border: 1px solid;
+                // border: 1px solid;
 
                 img {
                     width: 100%;
@@ -61,7 +61,7 @@
         .product__data {
             width: 704px;
             height: 937px;
-            border: 1px solid;
+            // border: 1px solid;
             display: flex;
             flex-direction: column;
             gap: 56px;
@@ -77,7 +77,71 @@
             .product__data__appearance {
                 width: 382px;
                 height: 348px;
-                border: 1px solid;
+                // border: 1px solid;
+                display: flex;
+                flex-direction: column;
+                gap: 48px;
+
+                .product__data__appearance__color {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+
+                    .product__data__appearance__color__availableColors {
+                        display: flex;
+                        gap: 13px;
+
+                        .product__data__appearance__color__availableColors__availableColor {
+                            width: 38px;
+                            height: 38px;
+                            // border: 1px solid;
+                            cursor: pointer;
+                            border-radius: 19px;
+                        }
+                    }
+                }
+
+                .product__data__appearance__size {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+
+                    .product__data__appearance__size__availableSizes {
+                        display: flex;
+                        gap: 8px;
+
+                        button {
+                            width: 70px;
+                            height: 42px;
+                            background-color: white;
+                            border-radius: 10px;
+                            cursor: pointer;
+                            border: 1px solid #E1DFE1;
+                        }
+                    }
+                }
+
+                .product__data__appearance__quantity {
+                    select {
+                        width: 70px;
+                        height: 42px;
+                        background-color: white;
+                        border-radius: 10px;
+                        cursor: pointer;
+                        border: 1px solid #E1DFE1;
+                        font-size: 16px;
+                        // text-align: center;
+                        // Hide the native drop down icon because padding doesn't affect it
+                        -webkit-appearance: none; // for Chrome/Safari 
+                        appearance: none; 
+                        -moz-appearance: none; // for firefox
+                        // Use a custom one instead
+                        background: url('/icons/dropdownIcon.png') no-repeat right 1rem center;
+                        background-size: 1rem 1rem; /* size of your icon */
+                        padding-left: 16px;
+                        padding-right: 16px;
+                    }
+                }
             }
 
             .product__data__button {
