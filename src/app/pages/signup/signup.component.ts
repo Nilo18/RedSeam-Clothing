@@ -135,10 +135,14 @@ export class SignupComponent {
     try {
       const res = await this.auth.signup(formData)
       if (res.token) {
-        this.auth.saveTokenToStorage(res.token)
+        this.auth.saveToStorage('token', res.token)
       }
 
-      this.router.navigate(['products'])
+      if (res.user) {
+        this.auth.saveToStorage('user', String(res.user))
+      }
+
+      this.router.navigate(['/'])
     } catch (err: any) {
       this.sortErrors(err)
       this.separateConfirmPasswordError(err);

@@ -33,5 +33,33 @@
         p {
             cursor: pointer;
         }
+
+        .header__rightSection__profileImage {
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    // This will be used if a user is logged in
+    .header__rightSectionV2 {
+        @include FlexContainer;
+        gap: 20px;
+
+        img {
+            cursor: pointer;
+        }
+
+        .header__rightSection__userRelated {
+            @include FlexContainer;
+            gap: 4px;
+            cursor: pointer;
+
+            .header__rightSection__profileImage {
+                width: 40px;
+                height: 40px;
+                user-select: none;
+            }
+        }
+
     }
 }

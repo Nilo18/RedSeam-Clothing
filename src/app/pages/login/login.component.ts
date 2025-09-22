@@ -58,9 +58,13 @@ export class LoginComponent {
     try {
       const res = await this.auth.login(credentials)
       if (res.token) {
-        this.auth.saveTokenToStorage(res.token)
+        this.auth.saveToStorage('token', res.token)
       }
-      this.router.navigate(['/products'])
+
+      if (res.user) {
+        this.auth.saveToStorage('user', String(res.user))
+      }
+      this.router.navigate(['/'])
     } catch (err: any) {
       if (err.status === 401) {
         this.gotUnauthErr = true

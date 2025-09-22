@@ -8,6 +8,20 @@ export interface LoginCredentials {
   password: string
 }
 
+export interface User {
+  avatar: string,
+  email: string,
+  id: number,
+  is_admin: number,
+  remember_token: any,
+  username: string
+}
+
+export interface UserResponse {
+  token: string,
+  user: User
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +32,8 @@ export class AuthService {
 
   async signup(credentials: FormData) {
     try {
-      const res = await firstValueFrom(this.http.post<any>(`${this.baseURL}/register`, credentials))
+      const res = await firstValueFrom(this.http.post<UserResponse>(`${this.baseURL}/register`, credentials))
+      console.log('The user is: ', res)
       return res
     } catch (err) {
       console.log("Couldn't sign up: ", err)
@@ -28,7 +43,8 @@ export class AuthService {
 
   async login(credentials: LoginCredentials) {
     try {
-      const res = await firstValueFrom(this.http.post<any>(`${this.baseURL}/login`, credentials))
+      const res = await firstValueFrom(this.http.post<UserResponse>(`${this.baseURL}/login`, credentials))
+      console.log('The user is: ', res)
       return res
     } catch (err) {
       console.log("Couldn't log in: ", err)
@@ -36,7 +52,7 @@ export class AuthService {
     }
   }
 
-  saveTokenToStorage(token: string) {
-    localStorage.setItem('token', JSON.stringify(token))
+  saveToStorage(name: string, token: string) {
+    localStorage.setItem(name, JSON.stringify(token))
   }
 }
