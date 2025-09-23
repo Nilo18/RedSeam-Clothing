@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ProductsService, Product } from '../../services/products.service';
 import { ActivatedRoute } from '@angular/router';
 import { ColorsService } from '../../services/colors.service';
+import { CartService, ProductProperties } from '../../services/cart.service';
 
 @Component({
   selector: 'app-product',
@@ -13,8 +14,15 @@ export class ProductComponent {
   images: string[] = []
   possibleColors: { [key: string]: string } = {}
   showCart: boolean = false
+  token!: string
+  productProperties = {
+    color: 'Blue',
+    quantity: 1,
+    size: 'XL'
+  }
 
-  constructor (private route: ActivatedRoute, private productsService: ProductsService, private colors: ColorsService) {}
+  constructor (private route: ActivatedRoute, private productsService: ProductsService, 
+    private colors: ColorsService, private cart: CartService) {}
 
   async ngOnInit() {  
     const id = this.route.snapshot.paramMap.get('id')
@@ -25,6 +33,9 @@ export class ProductComponent {
     console.log('The images received from the product: ', this.images)
     this.possibleColors = this.colors.getColorHexMap()
     console.log('The possible colors are: ', this.possibleColors)
+    const storedToken = localStorage.getItem('token')
+    this.token = storedToken ? JSON.parse(storedToken) : null
+    console.log('Successfully retrieved the token on product page: ', this.token)
   }
 
   setCartVisibility(val: boolean) {
@@ -32,5 +43,7 @@ export class ProductComponent {
     console.log(this.showCart)
   }
 
-  // shouldCloseCart(val: boolean)
+  async add(product: number, productProps: ProductProperties, token: string) {
+    await this.cart.addToCart(product, productProps, token)
+  }
 }

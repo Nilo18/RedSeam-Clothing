@@ -63,7 +63,7 @@
 
                 <div class="product__data__button">
                     <!-- Added parapgraph inside to align the text with the icon better -->
-                    <button><img src="icons/shoppingCartWhite.png" alt="Cart icon"><p>Add to cart</p></button>
+                    <button (click)="add(product!.id, productProperties, token)"><img src="icons/shoppingCartWhite.png" alt="Cart icon"><p>Add to cart</p></button>
                 </div>
 
                 <div class="product__data__details">

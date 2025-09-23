@@ -2,34 +2,56 @@
     <!-- For showing grey background behind the modal -->
     <div class="cart__background"></div>
     <div class="cart">
-        <div class="cart__heading">
-            <p>Shopping cart (2)</p>
-            <img src="icons/xIcon.png" alt="X icon" (click)="shouldCloseCart()">
-        </div>
+        <div class="cart__contentWrapper">
+            <div class="cart__heading">
+                <p>Shopping cart ({{cartProducts.length}})</p>
+                <img src="icons/xIcon.png" alt="X icon" (click)="shouldCloseCart()">
+            </div>
 
-        <div class="cart__items">
-            <div class="testItem">
-                
+            <div class="cart__items">
+                <div *ngFor="let cartProduct of cartProducts">
+                    <div class="cart__items__item">
+                        <img [src]="cartProduct.cover_image" alt="Product cover image">
+                        <div class="cart__items__item__details">
+                            <div class="cart__items__item__details__nameAndPrice">
+                                <p>{{cartProduct.name}}</p>
+                                <p>$ {{cartProduct.price}}</p>
+                            </div>
+                            <p class="cart__items__item__details__nameAndPrice__color">{{cartProduct.color}}</p>
+                            <p class="cart__items__item__details__nameAndPrice__size">{{cartProduct.size}}</p>
+                            <div class="cart__items__item__details__quantity">
+                                <button>
+                                    <img src="icons/minusIcon.png" alt="Minus icon">
+                                    {{cartProduct.quantity}}
+                                    <img src="icons/plusIcon.png" alt="Plus icon">
+                                </button>
+                                <p>Remove</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart__prices__and__button">
+                <div class="cart__prices">
+                    <div class="cart__prices__subTotal">
+                        <p>Items subtotal</p>
+                        <p>${{total - 5}}</p>
+                    </div>
+
+                    <div class="cart__prices__delivery">
+                        <p>Delivery</p>
+                        <p>$5</p>
+                    </div>
+
+                    <div class="cart__prices__total">
+                        <p>Total</p>
+                        <p>${{total}}</p>
+                    </div>
+                </div>
+
+                <button>Go to checkout</button>
             </div>
         </div>
-
-        <div class="cart__prices">
-            <div class="cart__prices__subTotal">
-                <p>Items subtotal</p>
-                <p>$50</p>
-            </div>
-
-            <div class="cart__prices__delivery">
-                <p>Delivery</p>
-                <p>$5</p>
-            </div>
-
-            <div class="cart__prices__total">
-                <p>Total</p>
-                <p>$55</p>
-            </div>
-        </div>
-
-        <button>Go to checkout</button>
     </div>
 </div>
