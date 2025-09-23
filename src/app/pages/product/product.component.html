@@ -25,28 +25,33 @@
 
                 <div class="product__data__appearance">
                     <div class="product__data__appearance__color">
-                        <p>Color: {{product?.color}}</p>
+                        <p>Color: {{productProperties.color === '' ? product?.color : productProperties.color}}</p>
                         <div class="product__data__appearance__color__availableColors">
                             <div *ngFor="let color of product?.available_colors">
-                                <div 
+                                <div (click)="productProperties.color = color"
                                 class="product__data__appearance__color__availableColors__availableColor"
-                                [style.background-color]="possibleColors[color]"></div>   
+                                tabindex="0"
+                                [style.background-color]="possibleColors[color]"
+                                [class.selected]="productProperties.color === color"></div>   
                             </div>
-                        </div>
+                        </div>  
                     </div>
 
                     <div class="product__data__appearance__size">
-                        <p>Size: {{product?.size}}</p>
+                        <p>Size: {{productProperties.size === '' ? product?.size : productProperties.size}}</p>
                         <div class="product__data__appearance__size__availableSizes">
                             <div *ngFor="let size of product?.available_sizes">
-                                <button>{{size}}</button>
+                                <button (click)="productProperties.size = size"
+                                [class.selected]="productProperties.size === size">
+                                    {{size}}
+                                </button>
                             </div>
                         </div>
                     </div>
 
                     <div class="product__data__appearance__quantity">
                         <p>Quantity</p>
-                        <select name="Quantity">
+                        <select name="Quantity" [(ngModel)]="productProperties.quantity">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -63,7 +68,11 @@
 
                 <div class="product__data__button">
                     <!-- Added parapgraph inside to align the text with the icon better -->
-                    <button (click)="add(product!.id, productProperties, token)"><img src="icons/shoppingCartWhite.png" alt="Cart icon"><p>Add to cart</p></button>
+                    <button (click)="add(product!.id, productProperties, token)">
+                        <img src="icons/shoppingCartWhite.png" alt="Cart icon">
+                        <p>Add to cart</p>
+                    </button>
+                    <p class="product__data__button__added">{{addedToCart ? 'Added!' : ''}}</p>
                 </div>
 
                 <div class="product__data__details">

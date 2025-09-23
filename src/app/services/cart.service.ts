@@ -4,9 +4,9 @@ import { firstValueFrom, BehaviorSubject } from 'rxjs';
 import { Product } from './products.service';
 
 export interface ProductProperties {
-  color: string,
+  color: string | undefined,
   quantity: number,
-  size: string
+  size: string | undefined
 }
 
 @Injectable({
@@ -24,6 +24,7 @@ export class CartService {
         Authorization: `Bearer ${token}`
        }}))
        console.log('Successfully added to the card, the response is: ', res)
+       return res
     } catch (err) {
       console.log("Couldn't add to cart: ", err)
       throw err

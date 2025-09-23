@@ -14,11 +14,12 @@ export class ProductComponent {
   images: string[] = []
   possibleColors: { [key: string]: string } = {}
   showCart: boolean = false
+  addedToCart: boolean = false // Flag to display a message when a product is added to cart
   token!: string
-  productProperties = {
-    color: 'Blue',
+  productProperties: ProductProperties = {
+    color: 'Default',
     quantity: 1,
-    size: 'XL'
+    size: 'M'
   }
 
   constructor (private route: ActivatedRoute, private productsService: ProductsService, 
@@ -28,6 +29,8 @@ export class ProductComponent {
     const id = this.route.snapshot.paramMap.get('id')
     console.log('Retrieved the id: ', id)
     this.product = await this.productsService.getProductById(Number(id))
+    this.productProperties.color = this.product.color ? this.product.color : 'Default' 
+    this.productProperties.size = this.product.size ? this.product.size : 'M'
     console.log('Received the product in the component: ', this.product)
     this.images = this.product.images
     console.log('The images received from the product: ', this.images)
@@ -44,6 +47,13 @@ export class ProductComponent {
   }
 
   async add(product: number, productProps: ProductProperties, token: string) {
-    await this.cart.addToCart(product, productProps, token)
+    console.log('The product properties are: ', this.productProperties)
+    const res = await this.cart.addToCart(product, productProps, token)
+    this.addedToCart = res ? true : false // Make the successful addition message appear based on the condition
+    // Remove the message after 2 seconds
+    setTimeout(() => {
+      this.addedToCart = false
+    }, 2000)
   }
+  
 }
