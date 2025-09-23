@@ -8,50 +8,76 @@
                 <img src="icons/xIcon.png" alt="X icon" (click)="shouldCloseCart()">
             </div>
 
-            <div class="cart__items">
-                <div *ngFor="let cartProduct of cartProducts">
-                    <div class="cart__items__item">
-                        <img [src]="cartProduct.cover_image" alt="Product cover image">
-                        <div class="cart__items__item__details">
-                            <div class="cart__items__item__details__nameAndPrice">
-                                <p>{{cartProduct.name}}</p>
-                                <p>$ {{cartProduct.price}}</p>
-                            </div>
-                            <p class="cart__items__item__details__nameAndPrice__color">{{cartProduct.color}}</p>
-                            <p class="cart__items__item__details__nameAndPrice__size">{{cartProduct.size}}</p>
-                            <div class="cart__items__item__details__quantity">
-                                <button>
-                                    <img src="icons/minusIcon.png" alt="Minus icon">
-                                    {{cartProduct.quantity}}
-                                    <img src="icons/plusIcon.png" alt="Plus icon">
-                                </button>
-                                <p>Remove</p>
+            <ng-container *ngIf="cartIsLoading">
+                <p>Loading...</p>
+            </ng-container>
+
+            <ng-container *ngIf="!cartIsLoading">
+                <ng-container *ngIf="cartProducts.length > 0 && !cartIsLoading; else showEmptyCart">
+                    <div class="cart__items">
+                        <div *ngFor="let cartProduct of cartProducts">
+                            <div class="cart__items__item">
+                                <img [src]="cartProduct.cover_image" alt="Product cover image" draggable="false">
+                                <div class="cart__items__item__details">
+                                    <div class="cart__items__item__details__nameAndPrice">
+                                        <p>{{cartProduct.name}}</p>
+                                        <p>$ {{cartProduct.price}}</p>
+                                    </div>
+                                    <p class="cart__items__item__details__nameAndPrice__color">{{cartProduct.color}}</p>
+                                    <p class="cart__items__item__details__nameAndPrice__size">{{cartProduct.size}}</p>
+                                    <div class="cart__items__item__details__quantity">
+                                        <button>
+                                            <img src="icons/minusIcon.png" alt="Minus icon" 
+                                            [style.filter]="cartProduct.quantity > 1 ? 'brightness(0)' : 'brightness(1)'"
+                                            (click)="updateQuantity(cartProduct.id, cartProduct.quantity - 1, token)" 
+                                            draggable="false">
+                                            {{cartProduct.quantity}}
+                                            <img src="icons/plusIcon.png" alt="Plus icon" 
+                                            (click)="updateQuantity(cartProduct.id, cartProduct.quantity + 1, token)"
+                                            draggable="false">
+                                        </button>
+                                        <p (click)="deleteItem(cartProduct.id, token)">Remove</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </ng-container>
+            </ng-container>
+
+            <ng-template #showEmptyCart>
+                <div class="cart__empty">
+                    <img src="icons/emptyCartIcon.png" alt="Empty cart icon">
+                    <div class="cart__empty__message">
+                        <h3>Ooops!</h3>
+                        <p>You've got nothing in your cart just yet...</p>
+                    </div>
+                    <button routerLink="/">Start shopping</button>
                 </div>
-            </div>
+            </ng-template>
 
-            <div class="cart__prices__and__button">
-                <div class="cart__prices">
-                    <div class="cart__prices__subTotal">
-                        <p>Items subtotal</p>
-                        <p>${{total - 5}}</p>
+            <ng-container *ngIf="cartProducts.length > 0 && !cartIsLoading">
+                <div class="cart__prices__and__button">
+                    <div class="cart__prices">
+                        <div class="cart__prices__subTotal">
+                            <p>Items subtotal</p>
+                            <p>${{total}}</p>
+                        </div>
+
+                        <div class="cart__prices__delivery">
+                            <p>Delivery</p>
+                            <p>$5</p>
+                        </div>
+
+                        <div class="cart__prices__total">
+                            <p>Total</p>
+                            <p>${{total + 5}}</p>
+                        </div>
                     </div>
 
-                    <div class="cart__prices__delivery">
-                        <p>Delivery</p>
-                        <p>$5</p>
-                    </div>
-
-                    <div class="cart__prices__total">
-                        <p>Total</p>
-                        <p>${{total}}</p>
-                    </div>
+                    <button>Go to checkout</button>
                 </div>
-
-                <button>Go to checkout</button>
-            </div>
+            </ng-container>
         </div>
     </div>
 </div>

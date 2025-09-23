@@ -37,7 +37,7 @@ export class AuthService {
       return res
     } catch (err) {
       console.log("Couldn't sign up: ", err)
-      throw err
+      throw err // Rethrow error to allow the error message to be displayed on the page
     }
   }
 

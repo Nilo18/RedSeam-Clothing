@@ -123,13 +123,35 @@
             }
         }
 
+        .cart__empty {
+            @include FlexContainerColumn;
+            gap: 56px;
+
+            img {
+                width: 170px;
+                height: 135px;
+            }
+
+            .cart__empty__message {
+                @include FlexContainerColumn;
+                gap: 20px
+            }
+
+            button {
+                @include BasicRedseamButton;
+                width: 214px;
+                height: 41px;
+            }
+        }
+
         .cart__prices__and__button {
             display: flex;
             flex-direction: column;
             gap: 100px;
             position: absolute;
             bottom: 0;
-            margin-bottom: 40px;
+            // margin-top: 20px;
+            margin-bottom: 30px;
 
             .cart__prices {
                 @include FlexContainerColumn;
