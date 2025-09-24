@@ -1,0 +1,156 @@
+@import '../../../styles/mixins.scss';
+
+.checkout {
+    width: 1920px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 100px;
+    padding-left: 100px;
+    padding-right: 100px;
+
+    .checkout__leftSide {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+
+        .checkout__leftSide__orderDetails {
+            width: 1129px;
+            height: 635px;
+            border: 1px solid;
+            padding: 72px 47px 72px 47px;
+            border: none;
+            border-radius: 16px;
+            background-color: rgb(249, 247, 247);
+            display: flex;
+            flex-direction: column;
+            gap: 46px;
+
+            p {
+                font-size: 22px;
+            }
+
+            .checkout__leftSide__orderDetails__form {
+                display: flex;
+                flex-direction: column;
+                gap: 33px;
+                width: 578px;
+
+                p {
+                    font-size: 11px;
+                    line-height: 0;
+                }
+
+                input {
+                    height: 42px;
+                    border: 1px solid #E1DFE1;
+                    border-radius: 8px;
+                    padding-left: 12px;
+                    padding-right: 12px;
+                    padding-top: 10.5px;
+                    padding-bottom: 10.5px;
+                    font-size: 14px;
+                }
+
+                input::placeholder {
+                    color: black;
+                }
+
+                .checkout__leftSide__orderDetails__form__emailInput {
+                    // Add the envelope icon
+                    background: url('/icons/envelopeIcon.png') no-repeat 8px center;
+                    background-color: white;
+                    padding-left: 32.5px;
+                }
+
+                .checkout__leftSide__orderDetails__form__nameAndSurname, .checkout__leftSide__orderDetails__form__addressAndZip {
+                    display: flex;
+                    gap: 24px;
+
+                    input {
+                        width: 277px;
+                    }
+                }
+
+                .checkout__leftSide__orderDetails__form__addressAndZip {
+                    .checkout__leftSide__orderDetails__form__address,
+                    .checkout__leftSide__orderDetails__form__zip {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 15px;
+                    }
+                }
+
+                .checkout__leftSide__orderDetails__form__nameAndSurname {
+                    .checkout__leftSide__orderDetails__form__name,
+                    .checkout__leftSide__orderDetails__form__surname {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 15px;
+                    }
+                }
+
+                .checkout__checkout__leftSide__orderDetails__form__emailContainer {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 15px;
+                }
+            }
+        }
+    }
+
+    .checkout__cart {
+        // border: 1px solid;
+        width: 460px;
+        height: 635px;
+        margin-top: 85px;
+        display: flex;
+        flex-direction: column;
+
+        // Slightly change the cart's appearance to match the checkout page
+        ::ng-deep app-cart-content .cart__contentWrapper {
+            height: 635px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .cart__prices__and__button {
+                position: static;
+                margin-bottom: 0;
+                gap: 86px;
+                height: 255px;
+            }
+        }
+    }
+}
+
+.checkoutSuccess {
+    @include FlexContainerColumn;
+    width: 1720px;
+    height: auto;
+
+    .checkoutSuccess__successMsg {
+        @include FlexContainerColumn;
+        gap: 40px;
+
+        img {
+            width: 76px;
+            height: 76px;
+        }
+
+        .checkoutSuccess__successMsg__text {
+            @include FlexContainerColumn;
+
+            h1 {
+                font-size: 42px;
+            }
+        }
+
+        button {
+            @include BasicRedseamButton;
+            width: 214px;
+            height: 41px;
+        }
+    }
+}

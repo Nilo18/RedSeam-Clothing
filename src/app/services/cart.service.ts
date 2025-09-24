@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, BehaviorSubject } from 'rxjs';
 import { Product } from './products.service';
+import { FormGroup } from '@angular/forms';
 
 export interface ProductProperties {
   color: string | undefined,
@@ -9,12 +10,18 @@ export interface ProductProperties {
   size: string | undefined
 }
 
+export interface CheckoutCredentials {
+  address: string,
+  email: string,
+  name: string,
+  surname: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   private cartURL ='https://api.redseam.redberryinternship.ge/api/cart'
-  private productsSubject = new BehaviorSubject<any[]>([])
 
   constructor(private http: HttpClient) { }
 
@@ -65,6 +72,18 @@ export class CartService {
       console.log('The updated item: ', res)
     } catch (err) {
       console.log("Couldn't update quantity: ", err)
+      throw err
+    }
+  }
+
+  async clearCart(credentials: FormGroup, token: string) {
+    try {
+      const res = await firstValueFrom(this.http.post(`${this.cartURL}/checkout`, credentials.value, {headers: {
+        Authorization: `Bearer ${token}`
+      }}))
+      // console.log(res)
+    } catch (err) {
+      console.log("Couldn't clear the cart: ", err)
       throw err
     }
   }

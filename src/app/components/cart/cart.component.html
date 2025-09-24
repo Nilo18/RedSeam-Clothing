@@ -7,7 +7,9 @@
                 <p>Shopping cart ({{cartProducts.length}})</p>
                 <img src="icons/xIcon.png" alt="X icon" (click)="shouldCloseCart()">
             </div>
+            <app-cart-content></app-cart-content>
 
+            <!-- 
             <ng-container *ngIf="cartIsLoading">
                 <p>Loading...</p>
             </ng-container>
@@ -76,9 +78,9 @@
                         </div>
                     </div>
 
-                    <button>Go to checkout</button>
+                    <button routerLink="/checkout">Go to checkout</button>
                 </div>
             </ng-container>
-        </div>
+        </div> -->
     </div>
 </div>

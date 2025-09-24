@@ -12,6 +12,7 @@ import { ProductsComponent } from './pages/products/products.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CartComponent } from './components/cart/cart.component';
+import { CartContentComponent } from './components/cart-content/cart-content.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CartComponent } from './components/cart/cart.component';
     HeaderComponent,
     CheckoutComponent,
     ProductsComponent,
-    CartComponent
+    CartComponent,
+    CartContentComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,89 @@
-<p>checkout works!</p>
+<app-header></app-header>
+<div class="cont">
+    <div class="checkout">
+        <ng-container *ngIf="!showSuccess; else showMsg">
+            <div class="checkout__leftSide">
+                <h1>Checkout</h1>
+                <div class="checkout__leftSide__orderDetails">
+                    <p>Order details</p>
+                    <form class="checkout__leftSide__orderDetails__form" [formGroup]="checkoutForm">
+                    
+                        <div class="checkout__leftSide__orderDetails__form__nameAndSurname">
+                            <div class="checkout__leftSide__orderDetails__form__name">
+                                <input type="text" placeholder="Name" formControlName="name">
+                                <p class="errMsg" *ngIf="checkoutForm.get('name')?.touched && checkoutForm.get('name')?.invalid">
+                                    Name is required
+                                </p>
+                            </div>
+
+                            <div class="checkout__leftSide__orderDetails__form__surname">
+                                <input type="text" placeholder="Surname" formControlName="surname">
+                                <p class="errMsg" 
+                                *ngIf="checkoutForm.get('surname')?.touched && checkoutForm.get('surname')?.invalid">
+                                    Surname is required
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="checkout__checkout__leftSide__orderDetails__form__emailContainer">
+                            <input type="email" placeholder="Email" class="checkout__leftSide__orderDetails__form__emailInput" 
+                            formControlName="email">
+                            <p class="errMsg"
+                             *ngIf="checkoutForm.get('email')?.touched && checkoutForm.get('email')?.errors?.['required']">
+                                Email is required
+                            </p>
+
+                            <p class="errMsg" 
+                            *ngIf="checkoutForm.get('email')?.touched && checkoutForm.get('email')?.errors?.['email']">
+                                Enter a valid email
+                            </p>
+                        </div>
+
+                        <div class="checkout__leftSide__orderDetails__form__addressAndZip">
+                            <div class="checkout__leftSide__orderDetails__form__address">
+                                <input type="text" placeholder="Address" formControlName="address">
+                                <p class="errMsg" *ngIf="checkoutForm.get('address')?.touched && checkoutForm.get('address')?.invalid">
+                                    Address is required
+                                </p>
+                            </div>
+
+                            <div class="checkout__leftSide__orderDetails__form__zip">
+                                <input type="text" placeholder="Zip code" formControlName="zip_code">
+                                <p class="errMsg"
+                                 *ngIf="checkoutForm.get('zip_code')?.touched && checkoutForm.get('zip_code')?.errors?.['required']">
+                                    Zip code is required
+                                </p>
+
+                                <p class="errMsg" 
+                                *ngIf="checkoutForm.get('zip_code')?.touched && checkoutForm.get('zip_code')?.errors?.['pattern']">
+                                    Zip code must be a number
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+            <div class="checkout__cart">
+                <!-- The checkout form is being passed to the cart-content so it can send a req and clear the cart -->
+                <app-cart-content [checkoutForm]="checkoutForm"[isOnCheckout]="true" (showSuccessMsg)="toggleSuccessMsg($event)">
+                </app-cart-content>
+            </div>
+        </ng-container>
+    </div>
+
+    <ng-template #showMsg>
+        <div class="checkoutSuccess">
+            <div class="checkoutSuccess__successMsg">
+                <img src="icons/successIcon.png" alt="Success icon">
+                <div class="checkoutSuccess__successMsg__text">
+                    <h1>Congrats!</h1>
+                    <p>Your order is placed successfully!</p>
+                </div>
+                <button routerLink="/">Continue shopping</button>
+            </div>
+        </div>
+    </ng-template>
+</div>
