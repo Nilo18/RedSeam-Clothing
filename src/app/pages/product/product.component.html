@@ -7,8 +7,8 @@
         <div class="product__layout">
             <div class="product__images">
                 <div class="product__images__design">
-                    <div *ngFor="let image of images">
-                        <img [src]="image" alt="Product design">
+                    <div *ngFor="let image of images; let i = index">
+                        <img [src]="image" alt="Product design" (click)="onImageSelect(image, i)">
                     </div>
                 </div>
 
@@ -25,14 +25,15 @@
 
                 <div class="product__data__appearance">
                     <div class="product__data__appearance__color">
-                        <p>Color: {{productProperties.color === '' ? product?.color : productProperties.color}}</p>
+                        <p>Color: {{productProperties.color === 'Default' ? product?.color : productProperties.color}}</p>
                         <div class="product__data__appearance__color__availableColors">
-                            <div *ngFor="let color of product?.available_colors">
-                                <div (click)="productProperties.color = color"
+                            <div *ngFor="let color of product?.available_colors; let i = index">
+                                <div (click)="productProperties.color = color; selectedIndex = i; product.cover_image = product.images[i]"
                                 class="product__data__appearance__color__availableColors__availableColor"
                                 tabindex="0"
                                 [style.background-color]="possibleColors[color]"
-                                [class.selected]="productProperties.color === color"></div>   
+                                [class.selected]="selectedIndex === i">
+                                </div>   
                             </div>
                         </div>  
                     </div>

@@ -17,7 +17,8 @@
                     <div class="cart__items">
                         <div *ngFor="let cartProduct of cartProducts">
                             <div class="cart__items__item">
-                                <img [src]="cartProduct.cover_image" alt="Product cover image" draggable="false">
+                                <img [src]="cartProduct.cover_image" alt="Product cover image" draggable="false"
+                                 class="cart__items__item__coverImage">
                                 <div class="cart__items__item__details">
                                     <div class="cart__items__item__details__nameAndPrice">
                                         <p>{{cartProduct.name}}</p>

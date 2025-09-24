@@ -15,6 +15,9 @@ export class ProductComponent {
   possibleColors: { [key: string]: string } = {}
   showCart: boolean = false
   addedToCart: boolean = false // Flag to display a message when a product is added to cart
+  // Flag to control the index of the selected color,
+  // initialized as 0 to make sure that the page always displays the first color from the available_colors
+  selectedIndex: number = 0; 
   token!: string
   productProperties: ProductProperties = {
     color: 'Default',
@@ -56,4 +59,15 @@ export class ProductComponent {
     }, 2000)
   }
   
+  // shouldBeSelected() {
+    
+  // }
+
+  onImageSelect(image: string, i: number) {
+    if (!this.product) return; // runtime safe
+    if (!this.product?.available_colors) return;
+    this.product.cover_image = image;
+    this.selectedIndex = i;
+    this.productProperties.color = this.product.available_colors[i];
+  }
 }

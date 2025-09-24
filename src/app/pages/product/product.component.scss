@@ -44,6 +44,11 @@
                     width: 100%;
                     height: 161.33px;
                 }
+
+                img:hover {
+                    cursor: pointer;
+                    transform: scale(1.2);
+                }
             }
 
             .product__images__coverImage {
