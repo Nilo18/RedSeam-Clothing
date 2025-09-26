@@ -16,6 +16,7 @@ export class ProductsComponent {
   pageInfo!: Meta;
   pageLinks: PageLink[] = []
   currentPage: string = '1'
+  invalidInput: boolean = false // Flag to control filter inputs
 
   productsAreBeingFetched: boolean = true;
   filterInput: FilterValues = {
@@ -33,14 +34,6 @@ export class ProductsComponent {
     this.pageInfo = response.meta // This will save page info
     this.pageLinks = response.meta.links
     console.log('Received page links: ', this.pageLinks)
-    for (let link of this.pageLinks) {
-      if (link.active) {
-        // this.pageIsActive = true
-        const btn = document.querySelector<HTMLElement>('#firstButton')
-        console.log('The button access through DOM: ', btn)
-        btn?.focus()
-      }
-    }
     console.log(this.pageInfo)
     console.log('The next page is: ', this.getNextPage())
   }
@@ -102,9 +95,18 @@ export class ProductsComponent {
 
   async sendFilterReq() {
     try {
-      if (this.filterInput.from && this.filterInput.to) {
+      // If the input values are not numbers the request will not be sent
+      // This will avoid invalid filter inputs and keep the query strings inside the productsService clean
+      const from = Number(this.filterInput.from)
+      const to = Number(this.filterInput.to)
+      if (this.filterInput.from && this.filterInput.to && !isNaN(from) && !isNaN(to)) {
         const res = await this.productsService.getAllProducts('', this.filterInput.from, this.filterInput.to, '');
         this.products = res.data
+      } else {
+        this.invalidInput = true
+        setTimeout(() => {
+          this.invalidInput = false
+        }, 2000)
       }
     } catch (err) {
         console.log("Couldn't send filter request: ", err)

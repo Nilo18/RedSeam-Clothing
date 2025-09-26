@@ -26,6 +26,7 @@
                                 <input type="text" placeholder="From" [(ngModel)]="filterInput.from">
                                 <input type="text" placeholder="To" [(ngModel)]="filterInput.to">
                             </div>
+                            <ng-container *ngIf="invalidInput"><p class="errMsg">Please enter valid values</p></ng-container>
                             <div class="filter__modal__content__button">
                                 <button (click)="sendFilterReq()">Apply</button>
                             </div>
