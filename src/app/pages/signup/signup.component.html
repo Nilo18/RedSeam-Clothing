@@ -9,24 +9,26 @@
 
             <form class="signup__rightSide__form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
                 <div class="signup__rightSide__form__images">
-                    <div class="signup__rightside__form__images__imageUpload" (click)="fileInput.click()">
-                        <input type="file" accept="image/*" #fileInput (change)="onFileSelected($event)" hidden>
-                        <ng-container *ngIf="!selectedFile; else showProfileImg">
-                            <img src="icons/avatarPlaceholder.png" alt="Profile image placeholder" draggable="false">
-                        </ng-container>
+                    <div class="signup__rightside__form__images__container">
+                        <div class="signup__rightside__form__images__imageUpload" (click)="fileInput.click()">
+                            <input type="file" #fileInput (change)="onFileSelected($event)" hidden>
+                            <ng-container *ngIf="!selectedFile; else showProfileImg">
+                                <img src="icons/avatarPlaceholder.png" alt="Profile image placeholder" draggable="false">
+                            </ng-container>
 
-                        <ng-template #showProfileImg>
-                            <img [src]="imagePreview" alt="Profile image">
-                        </ng-template>
-                        <p>Upload new</p>
+                            <ng-template #showProfileImg>
+                                <img [src]="imagePreview" alt="Profile image">
+                            </ng-template>
+                            <p>Upload new</p>
+                        </div>
+
+                        <p (click)="removeFile()">Remove</p>
                     </div>
 
-                    <p (click)="removeFile()">Remove</p>
+                    <ng-container *ngIf="errors.avatarError?.[0]">
+                        <p class="errMsg avatarErr">{{errors.avatarError[0]}}</p>
+                    </ng-container>
                 </div>
-
-                <ng-container *ngIf="errors.avatarError?.[0]">
-                    <p class="errMsg avatarErr">{{errors.avatarError[0]}}</p>
-                </ng-container>
 
                 <div class="signup__rightside__form__fields">
                     <div class="signup__rightside__form__fields__username">

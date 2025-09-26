@@ -43,32 +43,43 @@
             gap: 46px;
 
             .signup__rightSide__form__images {
-                @include FlexContainer;
+                @include FlexContainerColumn;
                 justify-content: flex-start;
+                align-items: start;
                 width: 302px;
                 height: 100px;
                 gap: 15px;
 
-                .signup__rightside__form__images__imageUpload {
+                .signup__rightside__form__images__container {
                     @include FlexContainer;
-                    width: 207px;
-                    cursor: pointer;
                     gap: 15px;
 
-                    img {
-                        width: 100px;
-                        height: 100px;
-                        border-radius: 50px;
-                        user-select: none;
-                    }
+                    .signup__rightside__form__images__imageUpload {
+                        @include FlexContainer;
+                        width: 207px;
+                        cursor: pointer;
+                        gap: 15px;
 
+                        img {
+                            width: 100px;
+                            height: 100px;
+                            border-radius: 50px;
+                            user-select: none;
+                        }
+
+                    }
                 }
 
                 p {
                     cursor: pointer;
                     height: 21px;
-                    font-size: 14px
+                    font-size: 14px;
                     // width: 71px;
+                }
+
+                .avatarErr {
+                    cursor: auto;
+                    font-size: 11px;
                 }
             }
 
