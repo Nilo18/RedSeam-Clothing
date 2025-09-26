@@ -15,6 +15,7 @@ export class ProductsComponent {
   showSort: boolean = false; // Flag to control sort modal
   pageInfo!: Meta;
   pageLinks: PageLink[] = []
+  currentPage: string = '1'
 
   productsAreBeingFetched: boolean = true;
   filterInput: FilterValues = {
@@ -58,7 +59,8 @@ export class ProductsComponent {
     return String(this.pageInfo.current_page - 1)
   }
 
-  getCurrentPage() {
+  // This is needed to calculate the next page
+  getCurrentPageAsNum() {
     console.log(this.pageInfo?.current_page)
     if (this.pageInfo?.current_page < 8) {
       return this.pageInfo.current_page
@@ -68,7 +70,12 @@ export class ProductsComponent {
   }
 
   calculateNextPage() {
-    return String(this.getCurrentPage() + 1)
+    return String(this.getCurrentPageAsNum() + 1)
+  }
+
+  // This is needed to actually get the current page, it is necessary because casting is not allowed directly in the template
+  getCurrentPage() {
+    return String(this.getCurrentPageAsNum())
   }
 
   // Toggle filter modal
@@ -116,16 +123,16 @@ export class ProductsComponent {
   }
 
   async changePage(pageNumber: string) {
+    if (Number(pageNumber) <= 0) {
+      return
+    }
     const response = await this.productsService.getAllProducts(pageNumber)
     this.products = response.data;
     this.productsAreBeingFetched = false
     this.pageInfo = response.meta
     this.pageLinks = response.meta.links
-    for (let link of this.pageLinks) {
-      if (link.active) {
-        this.pageIsActive = true
-      }
-    }
+    this.currentPage = pageNumber
+    console.log('The current page is: ', this.currentPage)
     console.log('The next page is: ', this.getNextPage())
   }
 }

@@ -198,12 +198,13 @@
                 color: #FF4000;
             }
 
-            button:focus {
+            button.selected {
                 outline: none; // Remove browser default border
                 border-color: #FF4000;
                 color: #FF4000;
             }
         }
+        
     }
 
 

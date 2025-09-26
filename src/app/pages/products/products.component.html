@@ -78,11 +78,19 @@
 
             <div class="products__pages">
                 <img src="icons/leftArrowIcon.png" alt="Left arrow icon" draggable="false" (click)="changePage(getPreviousPage())">
-                <button (click)="changePage('1')" id="firstButton">1</button>
-                <button (click)="changePage(calculateNextPage())">{{calculateNextPage()}}</button>
+                <!-- If the current page is not 1 show the first page to help the user navigate back -->
+                <ng-container *ngIf="getCurrentPageAsNum() !== 1">
+                    <button (click)="changePage('1')" [class.selected]="currentPage === '1'">1</button>
+                </ng-container>
+                <button (click)="changePage(getCurrentPage())" id="firstButton" [class.selected]="currentPage === getCurrentPage()">
+                    {{getCurrentPage()}}
+                </button>
+                <button (click)="changePage(calculateNextPage())" [class.selected]="currentPage === calculateNextPage()">
+                    {{calculateNextPage()}}
+                </button>
                 <button>...</button>
-                <button (click)="changePage('9')">9</button>
-                <button (click)="changePage('10')">10</button>
+                <button (click)="changePage('9')" [class.selected]="currentPage === '9'">9</button>
+                <button (click)="changePage('10')" [class.selected]="currentPage === '10'">10</button>
                 <!-- Using getter because the page number has to be cast into a string in order to be used as a query parameter -->
                 <img src="icons/rightArrowIcon.png" alt="Right arrow icon" draggable="false" (click)="changePage(getNextPage())">
             </div>
