@@ -13,7 +13,7 @@
             <ng-template #showLoggedIn>
                 <img src="icons/shoppingCartBlack.png" alt="Shopping cart icon" draggable="false" (click)="shouldShowCart()">
                 <div class="header__rightSection__userRelated">
-                    <img [src]="user?.avatar" alt="User profile image" class="header__rightSection__profileImage" draggable="false">
+                    <img [src]="user?.avatar ? user.avatar : icons.avatarPlaceholder" alt="User profile image" class="header__rightSection__profileImage" draggable="false">
                     <img src="icons/dropdownIcon.png" alt="Arrow dropwdown icon" draggable="false">
                 </div>
             </ng-template>

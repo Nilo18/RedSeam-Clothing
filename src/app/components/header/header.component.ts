@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   userIsLoggedIn: boolean = false;
   user!: User
+  icons = {
+    avatarPlaceholder: 'icons/avatarPlaceholder.png'
+  };
   @Output() showCart = new EventEmitter<boolean>()
 
   constructor (private router: Router) {}
