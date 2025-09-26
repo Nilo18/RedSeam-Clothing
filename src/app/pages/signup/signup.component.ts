@@ -139,7 +139,7 @@ export class SignupComponent {
       }
 
       if (res.user) {
-        this.auth.saveToStorage('user', String(res.user))
+        this.auth.saveToStorage('user', res.user)
       }
 
       this.router.navigate(['/'])

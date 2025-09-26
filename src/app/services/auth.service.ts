@@ -52,7 +52,7 @@ export class AuthService {
     }
   }
 
-  saveToStorage(name: string, token: string) {
+  saveToStorage(name: string, token: any) {
     localStorage.setItem(name, JSON.stringify(token))
   }
 }

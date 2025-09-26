@@ -25,14 +25,15 @@
     .header__rightSection {
         @include FlexContainer;
         gap: 8px;
+        cursor: pointer;
 
         img {
             user-select: none;
         }
 
-        p {
-            cursor: pointer;
-        }
+        // p {
+        //     cursor: pointer;
+        // }
 
         .header__rightSection__profileImage {
             width: 40px;
