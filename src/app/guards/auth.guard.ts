@@ -8,7 +8,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router)
 
   if (token) {
-    return router.parseUrl('/')
+    return router.parseUrl('/') // Redirect to the products page if the user already has a token
   }
 
   return true;

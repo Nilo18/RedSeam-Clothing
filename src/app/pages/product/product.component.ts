@@ -15,6 +15,7 @@ export class ProductComponent {
   possibleColors: { [key: string]: string } = {}
   showCart: boolean = false
   addedToCart: boolean = false // Flag to display a message when a product is added to cart
+  failedToAdd: boolean = false // Flag to display a message when the user tries to add an item without authorization
   // Flag to control the index of the selected color,
   // initialized as 0 to make sure that the page always displays the first color from the available_colors
   selectedIndex: number = 0; 
@@ -50,6 +51,13 @@ export class ProductComponent {
   }
 
   async add(product: number, productProps: ProductProperties, token: string) {
+    if (!this.token) {
+      this.failedToAdd = true
+      setTimeout(() => {
+        this.failedToAdd = false
+      }, 2000)
+      return 
+    }
     console.log('The product properties are: ', this.productProperties)
     const res = await this.cart.addToCart(product, productProps, token)
     this.addedToCart = res ? true : false // Make the successful addition message appear based on the condition
@@ -58,10 +66,6 @@ export class ProductComponent {
       this.addedToCart = false
     }, 2000)
   }
-  
-  // shouldBeSelected() {
-    
-  // }
 
   onImageSelect(image: string, i: number) {
     if (!this.product) return; // runtime safe

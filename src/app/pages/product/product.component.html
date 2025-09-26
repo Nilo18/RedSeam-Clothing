@@ -73,7 +73,13 @@
                         <img src="icons/shoppingCartWhite.png" alt="Cart icon">
                         <p>Add to cart</p>
                     </button>
-                    <p class="product__data__button__added">{{addedToCart ? 'Added!' : ''}}</p>
+                    <p class="product__data__button__added">
+                        {{addedToCart ? 'Added!' : ''}}
+                    </p>
+
+                    <p class="product__data__button__failed">
+                        {{failedToAdd ? 'Log in or sign up to purchase items.' : ''}}
+                    </p>
                 </div>
 
                 <div class="product__data__details">

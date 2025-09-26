@@ -11,7 +11,7 @@
                 <div class="signup__rightSide__form__images">
                     <div class="signup__rightside__form__images__container">
                         <div class="signup__rightside__form__images__imageUpload" (click)="fileInput.click()">
-                            <input type="file" #fileInput (change)="onFileSelected($event)" hidden>
+                            <input type="file" #fileInput accept="image/*" (change)="onFileSelected($event)" hidden>
                             <ng-container *ngIf="!selectedFile; else showProfileImg">
                                 <img src="icons/avatarPlaceholder.png" alt="Profile image placeholder" draggable="false">
                             </ng-container>

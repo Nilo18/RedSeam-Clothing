@@ -6,13 +6,14 @@ import { ProductComponent } from './pages/product/product.component';
 import { LoginComponent } from './pages/login/login.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { authGuard } from './guards/auth.guard';
+import { checkoutGuard } from './guards/checkout.guard';
 
 const routes: Routes = [
   {path: '', component: ProductsComponent},
   {path: 'register', component: SignupComponent, canActivate: [authGuard]},
   {path: 'product/:id', component: ProductComponent},
   {path: 'login', component: LoginComponent, canActivate: [authGuard]},
-  {path: 'checkout', component: CheckoutComponent},
+  {path: 'checkout', component: CheckoutComponent, canActivate: [checkoutGuard]},
 ];
 
 @NgModule({
