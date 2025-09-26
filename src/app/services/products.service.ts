@@ -60,6 +60,11 @@ export interface FilterValues {
   to?: string
 }
 
+export interface AppliedFilter {
+  key: string,
+  content: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -71,6 +76,20 @@ export class ProductsService {
 
   constructor(private http: HttpClient) { }
 
+  getFilters() {
+    return this.filters
+  }
+
+  getSort() {
+    // if (this.sortBy) {
+      return this.sortBy
+    // }
+  }
+
+  setSort(value: string) {
+    this.sortBy = value;
+  }
+
   // Use one method for fetching products, this will allow sort and filter chaining
   async getAllProducts(page?: string, from?: string, to?: string, by?: string) {
     try {
@@ -80,10 +99,12 @@ export class ProductsService {
         this.filters.to = to;
       }
 
+      // Same goes for the sorting options
       if (by) { 
         this.sortBy = by; 
       }
 
+      // And the page options
       if (page) {
         this.page = page;
       } 
@@ -107,6 +128,7 @@ export class ProductsService {
       // Join the parameters with & to complete the construction
       const query = queryParts.join('&')
       // Send the request with the built query
+      console.log(query)
       const res = await firstValueFrom(this.http.get<ProductsResponse>(`${this.productsURL}?${query}`))
       console.log(res)
       return res

@@ -41,13 +41,13 @@
                             <div class="sort__modal__content__headingWrapper">
                                 <h4>Sort by</h4>
                             </div>
-                            <div class="sort__modal__content__optionWrapper" (click)="sort('created_at')">
+                            <div class="sort__modal__content__optionWrapper" (click)="sort('created_at', 'New products first')">
                                 <p>New products first</p>
                             </div>
-                            <div class="sort__modal__content__optionWrapper" (click)="sort('price')">
+                            <div class="sort__modal__content__optionWrapper" (click)="sort('price', 'Price, low to high')">
                                 <p>Price, low to high</p>
                             </div>
-                            <div class="sort__modal__content__optionWrapper" (click)="sort('-price')">
+                            <div class="sort__modal__content__optionWrapper" (click)="sort('-price', 'Price, high to low')">
                                 <p>Price, high to low</p>
                             </div>                        
                         </div>
@@ -55,6 +55,17 @@
                 </ng-container>
             </div>
         </div>
+
+        <ng-container *ngIf="appliedFilters.length > 0">
+            <div class="products__appliedFilters">
+                <div *ngFor="let filter of appliedFilters">
+                    <div class="products__appliedFilters__container">
+                        <p>{{filter.content}}</p>
+                        <img src="icons/xIcon.png" alt="X icon" (click)="removeFilter(filter.key)">
+                    </div>
+                </div>
+            </div>
+        </ng-container>
 
         <div class="products__itemsAndPages">
             <div class="products__items">

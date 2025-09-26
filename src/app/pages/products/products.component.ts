@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { ProductsService, Product, Meta, FilterValues, PageLink } from '../../services/products.service';
+import { ProductsService, Product, Meta, FilterValues, PageLink, AppliedFilter } from '../../services/products.service';
 
 @Component({
   selector: 'app-products',
@@ -9,7 +9,6 @@ import { ProductsService, Product, Meta, FilterValues, PageLink } from '../../se
 
 export class ProductsComponent {
   products: Product[] = []
-  // modalIsActive: boolean = false 
   pageIsActive: boolean = false; // Flag to check which page is active
   showFilter: boolean = false; // Flag to control filter modal
   showSort: boolean = false; // Flag to control sort modal
@@ -17,6 +16,7 @@ export class ProductsComponent {
   pageLinks: PageLink[] = []
   currentPage: string = '1'
   invalidInput: boolean = false // Flag to control filter inputs
+  appliedFilters: AppliedFilter[] = [] // Array to keep track and display the applied filters on the page
 
   productsAreBeingFetched: boolean = true;
   filterInput: FilterValues = {
@@ -54,7 +54,7 @@ export class ProductsComponent {
 
   // This is needed to calculate the next page
   getCurrentPageAsNum() {
-    console.log(this.pageInfo?.current_page)
+    // console.log(this.pageInfo?.current_page)
     if (this.pageInfo?.current_page < 8) {
       return this.pageInfo.current_page
     } else {
@@ -102,6 +102,9 @@ export class ProductsComponent {
       if (this.filterInput.from && this.filterInput.to && !isNaN(from) && !isNaN(to)) {
         const res = await this.productsService.getAllProducts('', this.filterInput.from, this.filterInput.to, '');
         this.products = res.data
+        this.pageInfo = res.meta // This will save page info
+        this.pageLinks = res.meta.links
+        this.applyFilter('Filter', `Price: ${from}-${to}`)
       } else {
         this.invalidInput = true
         setTimeout(() => {
@@ -119,9 +122,46 @@ export class ProductsComponent {
     // console.log('Sort flag', this.showSort)
   }
 
-  async sort(by: string) {
+  applyFilter(key: string, value: string) {
+    // Remove the previous sort option first before pushing another
+    const previousFilter = this.appliedFilters.findIndex(filter => filter.key === key)
+    if (previousFilter !== -1) {
+      this.appliedFilters.splice(previousFilter, 1)
+    }
+    this.appliedFilters.push({key: key, content: value})
+  }
+
+  async removeFilter(key: string) {
+    const filter = this.appliedFilters.findIndex(filter => filter.key === key)
+    if (filter !== -1) {
+      this.appliedFilters.splice(filter, 1)
+    }
+
+    console.log('The given key is: ', key)
+    console.log(this.productsService.getSort())
+    if (key === 'Sort') {
+      this.productsService.setSort('') 
+    } 
+    else if (key === 'Filter') {
+      this.productsService.getFilters().from = '' 
+      this.productsService.getFilters().to = ''
+    }
+
+    const res = await this.productsService.getAllProducts(
+      '', this.productsService.getFilters().from, this.productsService.getFilters().to, this.productsService.getSort()
+    );
+    this.products = res.data
+  }
+
+  // Made filterValue optional so that the function is not too dependent on appliedFilters
+  async sort(by: string, sortValue?: string) {
     const res = await this.productsService.getAllProducts('', '', '', by);
     this.products = res.data
+    this.pageInfo = res.meta // This will save page info
+    this.pageLinks = res.meta.links
+    if (sortValue) {
+      this.applyFilter('Sort', sortValue)
+    } 
   }
 
   async changePage(pageNumber: string) {
