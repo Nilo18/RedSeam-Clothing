@@ -55,35 +55,38 @@
             </div>
         </div>
 
-        <div class="products__items">
-            <ng-container *ngIf="productsAreBeingFetched">
-                <p>Loading...</p>
-            </ng-container>
+        <div class="products__itemsAndPages">
+            <div class="products__items">
+                <ng-container *ngIf="productsAreBeingFetched">
+                    <p>Loading...</p>
+                </ng-container>
 
-            <ng-container *ngIf="products.length; else showNoResults">
-                <div *ngFor="let product of products">
-                    <div class="products__items__item" [routerLink]="['/product', product.id]">
-                        <img [src]="product.cover_image" alt="Cover image">
-                        <p>{{product.name}}</p>
-                        <p>$ {{product.price}}</p>
+                <ng-container *ngIf="products.length; else showNoResults">
+                    <div *ngFor="let product of products">
+                        <div class="products__items__item" [routerLink]="['/product', product.id]">
+                            <img [src]="product.cover_image" alt="Cover image">
+                            <p>{{product.name}}</p>
+                            <p>$ {{product.price}}</p>
+                        </div>
                     </div>
-                </div>
-            </ng-container>
+                </ng-container>
 
-            <ng-template #showNoResults>
-                <p *ngIf="!productsAreBeingFetched">Couldn't find results.</p>
-            </ng-template>
+                <ng-template #showNoResults>
+                    <p *ngIf="!productsAreBeingFetched">Couldn't find results.</p>
+                </ng-template>
+            </div>
+
+            <div class="products__pages">
+                <img src="icons/leftArrowIcon.png" alt="Left arrow icon" draggable="false" (click)="changePage(getPreviousPage())">
+                <button (click)="changePage('1')" id="firstButton">1</button>
+                <button (click)="changePage(calculateNextPage())">{{calculateNextPage()}}</button>
+                <button>...</button>
+                <button (click)="changePage('9')">9</button>
+                <button (click)="changePage('10')">10</button>
+                <!-- Using getter because the page number has to be cast into a string in order to be used as a query parameter -->
+                <img src="icons/rightArrowIcon.png" alt="Right arrow icon" draggable="false" (click)="changePage(getNextPage())">
+            </div>
         </div>
 
-        <div class="products__pages">
-            <img src="icons/leftArrowIcon.png" alt="Left arrow icon" draggable="false" (click)="changePage(getPreviousPage())">
-            <button (click)="changePage('1')" id="firstButton">1</button>
-            <button (click)="changePage(calculateNextPage())">{{calculateNextPage()}}</button>
-            <button>...</button>
-            <button (click)="changePage('9')">9</button>
-            <button (click)="changePage('10')">10</button>
-            <!-- Using getter because the page number has to be cast into a string in order to be used as a query parameter -->
-            <img src="icons/rightArrowIcon.png" alt="Right arrow icon" draggable="false" (click)="changePage(getNextPage())">
-        </div>
     </div>
 </div>

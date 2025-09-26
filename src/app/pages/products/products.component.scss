@@ -1,7 +1,9 @@
 @import '../../../styles/mixins.scss';
 
 .products {
-    width: 1720px;
+    width: 1920px;
+    padding-left: 100px;
+    padding-right: 100px;
     height: auto;
     @include FlexContainerColumn;
     gap: 20px;
@@ -136,66 +138,73 @@
         }
     }
 
-    .products__items {
-        width: 1720px;
-        display: grid;
-        grid-template-columns: 412px 412px 412px 412px;
-        column-gap: 24px;
-        row-gap: 56px;
+    .products__itemsAndPages {
+        position: relative;
+        margin-bottom: 200px;
+        height: 2060px;
 
-        .products__items__itemImgSkeleton {
-            width: 412px;
-            height: 549px;
-            background-color: gray;
-            border: 1px solid;
-        }
+        .products__items {
+            width: 1720px;
+            display: grid;
+            grid-template-columns: 412px 412px 412px 412px;
+            column-gap: 24px;
+            row-gap: 56px;
 
-        .products__items__item {
-            width: 412px;
-            height: 614px;
-            cursor: pointer;
-
-            img {
+            .products__items__itemImgSkeleton {
                 width: 412px;
                 height: 549px;
+                background-color: gray;
+                border: 1px solid;
+            }
+
+            .products__items__item {
+                width: 412px;
+                height: 614px;
+                cursor: pointer;
+
+                img {
+                    width: 412px;
+                    height: 549px;
+                }
+            }
+        }
+
+        .products__pages {
+            @include FlexContainer;
+            gap: 8px;
+            width: 1720px;
+            height: 32px;
+            position: absolute;
+            bottom: 0;
+
+            img {
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+                user-select: none;
+            }
+
+            button {
+                width: 32px;
+                height: 32px;
+                background-color: white;
+                cursor: pointer;
+                border: 1px solid rgb(227, 227, 227);
+                border-radius: 4px;
+            }
+
+            button:hover {
+                border-color: #FF4000;
+                color: #FF4000;
+            }
+
+            button:focus {
+                outline: none; // Remove browser default border
+                border-color: #FF4000;
+                color: #FF4000;
             }
         }
     }
 
-    .products__pages {
-        @include FlexContainer;
-        margin-top: 50px;
-        margin-bottom: 100px;
-        gap: 8px;
-        width: 1720px;
-        height: 32px;
-
-        img {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        button {
-            width: 32px;
-            height: 32px;
-            background-color: white;
-            cursor: pointer;
-            border: 1px solid rgb(227, 227, 227);
-            border-radius: 4px;
-        }
-
-        button:hover {
-            border-color: #FF4000;
-            color: #FF4000;
-        }
-
-        button:focus {
-            outline: none; // Remove browser default border
-            border-color: #FF4000;
-            color: #FF4000;
-        }
-    }
 
 }
