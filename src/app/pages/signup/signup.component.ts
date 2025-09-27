@@ -40,9 +40,6 @@ export class SignupComponent {
     const input = event.target as HTMLInputElement
     if (input.files) {
       this.selectedFile = input.files[0]
-      console.log(input.files[0].type)
-      console.log(this.selectedFile)
-      console.log(this.selectedFile.name, this.selectedFile.type, this.selectedFile.size)
 
       const reader = new FileReader()
       reader.onload = () => {
@@ -102,7 +99,6 @@ export class SignupComponent {
 
     // Append the image only if it is valid
     if (this.selectedFile) {
-      console.log(this.selectedFile)
       formData.append('avatar', this.selectedFile)
     }
 
@@ -135,10 +131,6 @@ export class SignupComponent {
 
   async onSubmit() {
     const formData = this.appendToFormData()
-    formData.forEach((value, key) => {
-      console.log(key, value);
-    });
-
     try {
       const res = await this.auth.signup(formData)
       if (res.token) {

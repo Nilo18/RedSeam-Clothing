@@ -39,7 +39,7 @@ export interface Product {
   images: string[],
   name: string,
   price: string,
-  quanitity: number,
+  quantity: number,
   release_date: string,
   total_price: number
   available_colors?: string,
@@ -60,6 +60,8 @@ export interface FilterValues {
   to?: string
 }
 
+// This interface will be used to keep track of applied filters on the products page
+// It is designed as key value pairs in order to track each applied filter efficiently by key
 export interface AppliedFilter {
   key: string,
   content: string
@@ -75,20 +77,6 @@ export class ProductsService {
   private page?: string
 
   constructor(private http: HttpClient) { }
-
-  getFilters() {
-    return this.filters
-  }
-
-  getSort() {
-    // if (this.sortBy) {
-      return this.sortBy
-    // }
-  }
-
-  setSort(value: string) {
-    this.sortBy = value;
-  }
 
   // Use one method for fetching products, this will allow sort and filter chaining
   async getAllProducts(page?: string, from?: string, to?: string, by?: string) {
@@ -128,7 +116,6 @@ export class ProductsService {
       // Join the parameters with & to complete the construction
       const query = queryParts.join('&')
       // Send the request with the built query
-      console.log(query)
       const res = await firstValueFrom(this.http.get<ProductsResponse>(`${this.productsURL}?${query}`))
       console.log(res)
       return res
@@ -141,11 +128,22 @@ export class ProductsService {
   async getProductById(id: number) {
     try {
       const res = await firstValueFrom(this.http.get<Product>(`${this.productsURL}/${id}`))
-      console.log('The found product is: ', res)
       return res
     } catch (err) {
       console.log("Couldn't get product by id: ", err)
       throw err
     }
+  }
+
+  getFilters() {
+    return this.filters
+  }
+
+  getSort() {
+    return this.sortBy
+  }
+
+  setSort(value: string) {
+    this.sortBy = value;
   }
 }

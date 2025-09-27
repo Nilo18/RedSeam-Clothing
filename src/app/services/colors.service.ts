@@ -25,7 +25,8 @@ export class ColorsService {
       'Peach': '#FFE5B4',
       'Olive': '#808000',
       'Orange': '#ff8c42ff',
-      'Yellow': '#fffc67ff'
+      'Yellow': '#fffc67ff',
+      'Cream': '#FFFDD0'
   };
 
   getColorHexMap() { return this.colorHexMap }

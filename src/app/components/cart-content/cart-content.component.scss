@@ -26,7 +26,6 @@
 
     .cart__items {
         width: 100%;
-        // height: 100%;
         height: auto;
         max-height: 402px;
         display: flex;
@@ -37,7 +36,6 @@
         .cart__items__item {
             width: 100%;
             height: 134px;
-            // border: 1px solid;
             display: flex;
             gap: 17px;
 
@@ -54,8 +52,6 @@
             .cart__items__item__details {
                 width: 343px;
                 height: 134px;
-                // border: 1px solid;
-                // margin-top: 7px;
                 display: flex;
                 flex-direction: column;
                 gap: 13px;
@@ -131,7 +127,6 @@
         gap: 100px;
         position: absolute;
         bottom: 0;
-        // margin-top: 20px;
         margin-bottom: 30px;
 
         .cart__prices {

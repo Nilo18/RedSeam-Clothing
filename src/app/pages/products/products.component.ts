@@ -30,12 +30,8 @@ export class ProductsComponent {
     const response = await this.productsService.getAllProducts('1')
     this.products = response.data; // This will save the products
     this.productsAreBeingFetched = false
-    console.log('Products inside the ProductComponent: ', this.products)
     this.pageInfo = response.meta // This will save page info
     this.pageLinks = response.meta.links
-    console.log('Received page links: ', this.pageLinks)
-    console.log(this.pageInfo)
-    console.log('The next page is: ', this.getNextPage())
   }
 
   getNextPage() {
@@ -54,7 +50,6 @@ export class ProductsComponent {
 
   // This is needed to calculate the next page
   getCurrentPageAsNum() {
-    // console.log(this.pageInfo?.current_page)
     if (this.pageInfo?.current_page < 8) {
       return this.pageInfo.current_page
     } else {
@@ -74,7 +69,6 @@ export class ProductsComponent {
   // Toggle filter modal
   toggleFilter() {
     this.showFilter = !this.showFilter
-    // console.log('Filter flag', this.showFilter)
   }
 
   // Disable modals when the user clicks somewhere else on the page
@@ -119,7 +113,6 @@ export class ProductsComponent {
   // Toggle sort modal
   toggleSort() {
     this.showSort = !this.showSort
-    // console.log('Sort flag', this.showSort)
   }
 
   applyFilter(key: string, value: string) {
@@ -137,12 +130,10 @@ export class ProductsComponent {
       this.appliedFilters.splice(filter, 1)
     }
 
-    console.log('The given key is: ', key)
-    console.log(this.productsService.getSort())
+    // Clear the query params depending on the key
     if (key === 'Sort') {
       this.productsService.setSort('') 
-    } 
-    else if (key === 'Filter') {
+    } else if (key === 'Filter') {
       this.productsService.getFilters().from = '' 
       this.productsService.getFilters().to = ''
     }
@@ -174,7 +165,5 @@ export class ProductsComponent {
     this.pageInfo = response.meta
     this.pageLinks = response.meta.links
     this.currentPage = pageNumber
-    console.log('The current page is: ', this.currentPage)
-    console.log('The next page is: ', this.getNextPage())
   }
 }

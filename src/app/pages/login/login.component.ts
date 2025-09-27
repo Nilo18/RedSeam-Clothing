@@ -62,8 +62,6 @@ export class LoginComponent {
       }
 
       if (res.user) {
-        console.log('The user:', res.user)
-        console.log('The user as string:', String(res.user))
         this.auth.saveToStorage('user', res.user)
       }
       this.router.navigate(['/'])

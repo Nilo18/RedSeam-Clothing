@@ -30,7 +30,6 @@ export class CartService {
       const res = await firstValueFrom(this.http.post<any>(`${this.cartURL}/products/${product}`, productProps, {headers: {
         Authorization: `Bearer ${token}`
        }}))
-       console.log('Successfully added to the card, the response is: ', res)
        return res
     } catch (err) {
       console.log("Couldn't add to cart: ", err)
@@ -43,7 +42,6 @@ export class CartService {
       const res = await firstValueFrom(this.http.get<any>(this.cartURL, {headers: {
         Authorization: `Bearer ${token}`
       }}))
-      console.log("The cart items are: ", res)
       return res
     } catch (err) {
       console.log("Couldn't get cart items: ", err)
@@ -56,7 +54,6 @@ export class CartService {
       const res = await firstValueFrom(this.http.delete(`${this.cartURL}/products/${product}`, {headers: {
         Authorization: `Bearer ${token}`
       }}))
-      console.log(res)
     } catch (err) {
       console.log("Couldn't delete cart item: ", err)
       throw err
@@ -69,7 +66,6 @@ export class CartService {
       const res = await firstValueFrom(this.http.patch(`${this.cartURL}/products/${product}`, {quantity}, {headers: {
         Authorization: `Bearer ${token}`
       }}))
-      console.log('The updated item: ', res)
     } catch (err) {
       console.log("Couldn't update quantity: ", err)
       throw err
@@ -81,7 +77,6 @@ export class CartService {
       const res = await firstValueFrom(this.http.post(`${this.cartURL}/checkout`, credentials.value, {headers: {
         Authorization: `Bearer ${token}`
       }}))
-      // console.log(res)
     } catch (err) {
       console.log("Couldn't clear the cart: ", err)
       throw err

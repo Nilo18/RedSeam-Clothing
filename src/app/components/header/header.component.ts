@@ -25,7 +25,6 @@ export class HeaderComponent {
 
     const storedUser = localStorage.getItem('user')
     this.user = storedUser ? JSON.parse(storedUser) : null
-    console.log('The user object inside the header: ', this.user)
   }
 
   navigate() {

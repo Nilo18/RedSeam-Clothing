@@ -29,7 +29,6 @@ export class CartContentComponent {
     this.token = storedToken ? JSON.parse(storedToken) : null
     this.cartProducts = await this.cart.getCartItems(this.token)
     this.cartIsLoading = false
-    console.log('The local cart in cart component is: ', this.cartProducts)
     this.calculateTotal()
     if (this.isOnCheckout) {
       this.checkoutButtonMsg = 'Pay'
@@ -45,9 +44,7 @@ export class CartContentComponent {
   calculateTotal() {
     this.total = 0 // Reset the total before each calculation to prevent it from having stale data
     for (let cartProduct of this.cartProducts) {
-        console.log('Cart product prices are: ', cartProduct.price)
         this.total += cartProduct.quantity * cartProduct.price
-        console.log('The total price is: ', this.total)
     }
   }
 
@@ -62,10 +59,8 @@ export class CartContentComponent {
   }
 
   async updateQuantity(product: number, quantity: number, token: string) {
-    console.log('The suggested quantity is: ', quantity)
     // Make sure that the quantity doesn't become a negative number
     if (quantity > 0) {
-      console.log(`The id is: ${product}`, `The suggested new quantity is: ${quantity}`, `The token is: ${token}`)
       // Update the local cart array first so the changes are in live mode
       const suggestedProd = this.cartProducts.find(prod => prod.id === product)
       suggestedProd.quantity = quantity
