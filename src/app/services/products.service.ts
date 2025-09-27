@@ -117,7 +117,6 @@ export class ProductsService {
       const query = queryParts.join('&')
       // Send the request with the built query
       const res = await firstValueFrom(this.http.get<ProductsResponse>(`${this.productsURL}?${query}`))
-      console.log(res)
       return res
     } catch (err) {
       console.log("Couldn't get all the products: ", err)
