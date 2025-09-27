@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header (showCart)="setCartVisibility($event)"></app-header>
 <div class="cont">
     <div class="products">
         <div class="products__heading">
@@ -109,4 +109,8 @@
         </div>
 
     </div>
+
+    <ng-container *ngIf="showCart">
+        <app-cart (closeCart)="setCartVisibility($event)"></app-cart>
+    </ng-container>
 </div>

@@ -17,6 +17,7 @@ export class ProductsComponent {
   currentPage: string = '1'
   invalidInput: boolean = false // Flag to control filter inputs
   appliedFilters: AppliedFilter[] = [] // Array to keep track and display the applied filters on the page
+  showCart: boolean = false
 
   productsAreBeingFetched: boolean = true;
   filterInput: FilterValues = {
@@ -108,6 +109,10 @@ export class ProductsComponent {
     } catch (err) {
         console.log("Couldn't send filter request: ", err)
     }
+  }
+
+  setCartVisibility(val: boolean) {
+    this.showCart = val
   }
 
   // Toggle sort modal
